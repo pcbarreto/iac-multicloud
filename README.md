@@ -34,13 +34,13 @@
         │     ├── prod
         │     │ ├── k8s
         │     │ ├── karpenter
-        │     │ ├── lgtm
+        │     │ ├── monitoring
         │     │ ├── resources
         │     │ └── vpc
         │     └── stg
         │         ├── k8s
         │         ├── karpenter
-        │         ├── lgtm
+        │         ├── monitoring
         │         ├── resources
         │         └── vpc
         ├── azure
