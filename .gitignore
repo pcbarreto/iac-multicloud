@@ -1,6 +1,7 @@
 # Local .terraform directories
 .terraform/
-
+.idea
+.vscode
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -15,7 +16,8 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
-
+*.tfplan
+*.out
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
 override.tf
