@@ -4,7 +4,6 @@ settings:
   anchor: true
   color: true
   hide-empty: true
-  sort-by: required
 
 content: |-
   {{ .Header }}
