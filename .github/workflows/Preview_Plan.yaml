@@ -58,7 +58,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::851725285619:role/terraform
+          role-to-assume: arn:aws:iam::471112931336:role/terraform
 
       - name: Run Terraform init in all changed stacks
         if: steps.list-changed.outputs.stdout
@@ -80,7 +80,7 @@ jobs:
             --parallel 5 \
             --mock-on-fail \
             --enable-sharing \
-            --tags=core
+            --tags core \
             --continue-on-error \
             -- \
             terraform plan -out plan.tfplan
