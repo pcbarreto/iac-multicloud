@@ -6,14 +6,11 @@ data "aws_eks_cluster" "eks" {
 }
 
 data "terraform_remote_state" "eks" {
-  backend = "remote"
+  backend = "s3"
 
   config = {
     bucket = "poc-multi-cloud-tfstate"
     key    = "eks/stacks-terraform.tfstate"
     region = "us-east-1"
-    workspaces = {
-      name = "dev"
-    }
   }
 }
