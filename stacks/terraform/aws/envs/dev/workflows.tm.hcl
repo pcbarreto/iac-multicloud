@@ -19,6 +19,7 @@ script "preview" {
       ["terraform", "plan", "-out", "out.tfplan", "-detailed-exitcode", "-lock=false", {
         mock_on_fail        = true
         enable_sharing      = true
+        terraform_plan_file = "out.tfplan"
       }],
     ]
   }
