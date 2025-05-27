@@ -64,13 +64,11 @@ jobs:
       - name: Run Terraform init in all changed stacks
         if: steps.list-changed.outputs.stdout
         run: |
-            terramate script run \
-            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+            terramate run \
             --changed \
             --parallel 1 \
-            --enable-sharing \
-            --mock-on-fail \
-            init
+            -- \
+            terraform init
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
@@ -81,9 +79,9 @@ jobs:
         run: |
           terramate run \
             --changed \
-            --parallel 1 \
-            --continue-on-error \
+            --parallel 1 \ 
             --enable-sharing \
+            --mock-on-fail \
             -- \
             terraform plan -out out.tfplan
         env:
