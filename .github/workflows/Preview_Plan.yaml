@@ -51,7 +51,7 @@ jobs:
 
       - name: List changed stacks
         id: list-changed
-        run: terramate list -C stacks/terraform/envs/${{ env.TF_WORKSPACE }} --changed
+        run: terramate list -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} --changed
 
       - name: Configure AWS credentials
         if: steps.list-changed.outputs.stdout
