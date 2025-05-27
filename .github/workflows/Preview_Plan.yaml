@@ -31,6 +31,13 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
+      - name: Configure AWS credentials
+        if: steps.list-changed.outputs.stdout
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::471112931336:role/terraform
+
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
         with:
@@ -49,13 +56,6 @@ jobs:
       - name: List changed stacks
         id: list
         run: terramate list --changed
-
-      - name: Configure AWS credentials
-        if: steps.list-changed.outputs.stdout
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::471112931336:role/terraform
 
       - name: Initialize Terraform in changed stacks
         if: steps.list.outputs.stdout
