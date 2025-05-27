@@ -68,6 +68,8 @@ jobs:
             -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
             --changed \
             --parallel 1 \
+            --enable-sharing \
+            --mock-on-fail \
             init
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -81,6 +83,7 @@ jobs:
             --changed \
             --parallel 1 \
             --continue-on-error \
+            --enable-sharing \
             -- \
             terraform plan -out out.tfplan
         env:
