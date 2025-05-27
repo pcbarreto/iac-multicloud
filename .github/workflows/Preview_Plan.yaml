@@ -95,6 +95,7 @@ jobs:
             -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
             --parallel 5 \
             --changed \
+            -- \
             deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
