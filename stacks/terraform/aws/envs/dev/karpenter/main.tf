@@ -1,23 +1,3 @@
-module "karpenter" {
-  source  = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version = "20.36.0"
-
-  cluster_name                    = var.cluster_name
-  enable_v1_permissions           = true
-  enable_pod_identity             = true
-  create_pod_identity_association = true
-
-  node_iam_role_additional_policies = {
-    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  }
-
-  tags = {
-    Owner       = "Platform Engineering"
-    Environment = "dev"
-    ManagedBy   = "Terraform"
-  }
-}
-
 resource "helm_release" "karpenter" {
   namespace  = "kube-system"
   name       = "karpenter"
@@ -39,11 +19,11 @@ resource "helm_release" "karpenter" {
     EOT
   ]
 
-  lifecycle {
-    ignore_changes = [
-      repository_password
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     repository_password
+  #   ]
+  # }
 }
 
 resource "kubectl_manifest" "karpenter_node_class" {
