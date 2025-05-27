@@ -82,8 +82,7 @@ jobs:
             --parallel 1 \ 
             --enable-sharing \
             --mock-on-fail \
-            -- \
-            terraform plan -out out.tfplan
+            -- terraform plan -out out.tfplan
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
@@ -94,8 +93,8 @@ jobs:
           terramate run \           
             --parallel 5 \
             --changed \
-            -- \
-            terraform apply -auto-approve out.tfplan
+            --enable-sharing \
+            -- terraform apply -auto-approve out.tfplan
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
