@@ -87,14 +87,14 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
 
-      - name: Apply Terraform changes stacks
-        if: steps.plan-changed.outcome == 'success'
-        run: |
-          terramate run \           
-            --parallel 5 \
-            --changed \
-            --enable-sharing \
-            -- terraform apply -auto-approve out.tfplan
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+#      - name: Apply Terraform changes stacks
+#        if: steps.plan-changed.outcome == 'success'
+#        run: |
+#          terramate run \
+#            --parallel 5 \
+#            --changed \
+#            --enable-sharing \
+#            -- terraform apply -auto-approve
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
+#          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
