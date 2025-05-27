@@ -34,7 +34,7 @@ resource "helm_release" "karpenter" {
       name: ${module.karpenter.service_account}
     settings:
       clusterName: ${var.cluster_name}
-      clusterEndpoint: ${var.cluster_endpoint}
+      clusterEndpoint: ${data.terraform_remote_state.eks.outputs.cluster_endpoint}
       interruptionQueue: ${module.karpenter.queue_name}
     EOT
   ]
