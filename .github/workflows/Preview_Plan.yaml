@@ -89,6 +89,7 @@ jobs:
             --parallel 5 \
             --changed \
             --enable-sharing \
+            --mock-on-fail \
             --continue-on-error \
             -- \
             terraform plan -out out.tfplan -lock=false
