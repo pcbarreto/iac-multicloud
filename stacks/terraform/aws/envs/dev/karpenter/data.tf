@@ -10,7 +10,7 @@ data "terraform_remote_state" "eks" {
 
   config = {
     bucket = "poc-multicloud-tfstate"
-    key    = "env:eks/stacks-terraform.tfstate"
+    key    = "env:/dev/eks/stacks-terraform.tfstate"
     region = "us-east-1"
   }
 }
