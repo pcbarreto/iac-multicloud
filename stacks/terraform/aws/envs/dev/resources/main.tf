@@ -16,20 +16,20 @@ module "metrics-server" {
   # ]
 }
 
-module "kube-state-metrics" {
-  source  = "lablabs/eks-kube-state-metrics/aws"
-  version = "0.8.0"
-
-  k8s_namespace      = "kube-state-metrics"
-  helm_release_name  = "kube-state-metrics"
-  helm_repo_url      = "https://prometheus-community.github.io/helm-charts"
-  helm_chart_name    = "kube-state-metrics"
-  helm_chart_version = var.kube_state_metrics_version
-
-  # depends_on = [
-  #   # module.k8s.eks_managed_node_groups,
-  #   helm_release.karpenter,
-  #   kubectl_manifest.karpenter_node_class,
-  #   kubectl_manifest.karpenter_node_pool
-  # ]
-}
+# module "kube-state-metrics" {
+#   source  = "lablabs/eks-kube-state-metrics/aws"
+#   version = "0.8.0"
+#
+#   k8s_namespace      = "kube-state-metrics"
+#   helm_release_name  = "kube-state-metrics"
+#   helm_repo_url      = "https://prometheus-community.github.io/helm-charts"
+#   helm_chart_name    = "kube-state-metrics"
+#   helm_chart_version = var.kube_state_metrics_version
+#
+#   # depends_on = [
+#   #   # module.k8s.eks_managed_node_groups,
+#   #   helm_release.karpenter,
+#   #   kubectl_manifest.karpenter_node_class,
+#   #   kubectl_manifest.karpenter_node_pool
+#   # ]
+# }

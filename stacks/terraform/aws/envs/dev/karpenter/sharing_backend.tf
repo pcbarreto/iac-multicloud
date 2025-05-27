@@ -6,6 +6,9 @@ variable "cluster_name" {
 variable "cluster_endpoint" {
   type = any
 }
-variable "certificate_authority_data" {
+variable "cluster_certificate_authority_data" {
+  type = any
+}
+variable "ami_type" {
   type = any
 }

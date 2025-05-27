@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket       = "poc-multicloud-tfstate"
+    bucket       = "poc-multi-cloud-tfstate"
     encrypt      = true
     key          = "resources/stacks-terraform.tfstate"
     region       = "us-east-1"

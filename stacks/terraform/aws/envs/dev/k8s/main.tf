@@ -30,9 +30,9 @@ module "eks" {
     }
   }
 
-  vpc_id                   = var.vpc_id
-  subnet_ids               = var.private_subnets
-  control_plane_subnet_ids = var.intra_subnets
+  vpc_id                   = data.terraform_remote_state.vpc.vpc_id
+  subnet_ids               = data.terraform_remote_state.vpc.private_subnets
+  control_plane_subnet_ids = data.terraform_remote_state.vpc.intra_subnets
 
   eks_managed_node_groups = {
     karpenter = {
@@ -43,13 +43,16 @@ module "eks" {
       max_size     = var.max_size
       desired_size = var.desired_size
 
-      # taints = {
-      #   addons = {
-      #     key    = "CriticalAddonsOnly"
-      #     value  = "true"
-      #     effect = "NO_SCHEDULE"
-      #   },
-      # }
+      taints = {
+        addons = {
+          key    = "CriticalAddonsOnly"
+          value  = "true"
+          effect = "NO_SCHEDULE"
+        },
+      }
+      labels = {
+        "karpenter.sh/controller" = "true"
+      }
     }
   }
 

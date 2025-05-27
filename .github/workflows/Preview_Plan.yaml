@@ -1,0 +1,88 @@
+name: Terraform Preview
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - feature/*
+env:
+  AWS_REGION: "us-east-1"
+  TF_WORKSPACE: "dev"
+
+
+jobs:
+  Preview:
+    name: Plan Terraform changes in changed stacks
+    runs-on: ubuntu-latest
+
+    defaults:
+      shell: bash
+
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+      checks: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Install Terramate
+        uses: terramate-io/terramate-action@v2
+
+      - name: Install asdf
+        uses: asdf-vm/actions/setup@v3
+        with:
+          asdf_branch: v0.15.0
+
+      - name: Install Terraform with asdf
+        run: |
+          asdf plugin add terraform
+          asdf install terraform
+
+      - name: Check Terramate formatting
+        run: | 
+          terramate generate
+          terramate fmt --check
+
+      - name: List changed stacks
+        id: list-changed
+        run: terramate list -C stacks/terraform/envs/${{ env.TF_WORKSPACE }} --changed
+
+      - name: Configure AWS credentials
+        if: steps.list-changed.outputs.stdout
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::851725285619:role/terraform
+
+      - name: Run Terraform init in all changed stacks
+        if: steps.list-changed.outputs.stdout
+        run: |
+          terramate run \
+            --changed \
+            --parallel 1 \
+            -- \
+            terraform init
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+
+      - name: Plan Terraform changes in changed stacks
+        if: steps.list-changed.outputs.stdout
+        run: |
+          terramate run \
+            --changed \
+            --parallel 5 \
+            --mock-on-failure \
+            --enable-sharing \
+            --continue-on-error \
+            -- \
+            terraform plan -out plan.tfplan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}

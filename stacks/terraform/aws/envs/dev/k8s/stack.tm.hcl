@@ -2,9 +2,9 @@ stack {
   name        = "AWS EKS Dev"
   description = "Stack to manage the main EKS"
   id          = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
-  tags        = ["core","eks", "dev"]
+  tags        = ["core", "eks", "dev"]
 
-   after = [
+  after = [
     "tag:vpc"
   ]
 
@@ -32,18 +32,18 @@ input "private_subnets" {
 }
 
 output "cluster_name" {
-  backend       = "default"
+  backend   = "default"
   value     = module.eks.cluster_name
   sensitive = false
 }
 
 output "cluster_endpoint" {
-  backend       = "default"
+  backend   = "default"
   value     = module.eks.cluster_endpoint
   sensitive = false
 }
-output "certificate_authority_data" {
-  backend       = "default"
+output "cluster_certificate_authority_data" {
+  backend   = "default"
   value     = module.eks.cluster_certificate_authority_data
   sensitive = true
 }

@@ -5,7 +5,7 @@ module "karpenter" {
   cluster_name                    = var.cluster_name
   enable_v1_permissions           = true
   enable_pod_identity             = true
-  create_pod_identity_association = true
+  # create_pod_identity_association = true
 
   node_iam_role_additional_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
@@ -25,7 +25,7 @@ resource "helm_release" "karpenter" {
   # repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   # repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart   = "karpenter"
-  version = "1.4.0"
+  version = "1.5.0"
   wait    = false
 
   values = [
