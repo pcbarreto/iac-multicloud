@@ -9,9 +9,9 @@ env:
   AWS_REGION: "us-east-1"
   TF_WORKSPACE: "dev"
 
-  defaults:
-    run:
-      shell: bash
+defaults:
+  run:
+    shell: bash
 
 jobs:
   Preview:
