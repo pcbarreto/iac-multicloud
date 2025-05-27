@@ -76,6 +76,8 @@ jobs:
           terramate run \
             --parallel 5 \
             --changed \
+            --mock-on-fail \
+            --enable-sharing \
             -- \
             terraform validate
 
@@ -86,6 +88,7 @@ jobs:
           terramate run \
             --parallel 5 \
             --changed \
+            --enable-sharing \
             --continue-on-error \
             -- \
             terraform plan -out out.tfplan -lock=false
