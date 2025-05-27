@@ -80,9 +80,8 @@ jobs:
           terramate script run \
             -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
             --changed \
-            --parallel 5 \
-            --continue-on-error \
-            -- \
+            --parallel 1 \
+            --continue-on-error \            
             preview
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -95,7 +94,6 @@ jobs:
             -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
             --parallel 5 \
             --changed \
-            -- \
             deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
