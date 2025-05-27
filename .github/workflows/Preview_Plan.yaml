@@ -78,7 +78,7 @@ jobs:
           terramate run \
             --changed \
             --parallel 5 \
-            --mock-on-failure \
+            --mock-on-fail \
             --enable-sharing \
             --continue-on-error \
             -- \
