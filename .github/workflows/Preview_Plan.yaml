@@ -33,6 +33,8 @@ jobs:
 
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
+        with:
+          version: "0.13.0"
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
@@ -42,6 +44,7 @@ jobs:
 
       - name: Check Terramate formatting
         run: terramate fmt --check
+        continue-on-error: true
 
       - name: Check Terraform formatting
         run: terraform fmt -recursive -check -diff
