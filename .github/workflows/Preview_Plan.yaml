@@ -15,7 +15,7 @@ defaults:
 
 jobs:
   Preview:
-    name: Plan Terraform changes in changed stacks
+    name: Plan Terraform changes stacks
     runs-on: ubuntu-latest
 
     permissions:
@@ -73,6 +73,7 @@ jobs:
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
 
       - name: Plan Terraform changes in changed stacks
+        id: plan-changed
         if: steps.list-changed.outputs.stdout
         run: |
           terramate run \
@@ -83,6 +84,21 @@ jobs:
             --continue-on-error \
             -- \
             terraform plan -out plan.tfplan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+
+      - name: Apply Terraform changes stacks
+        if: steps.plan-changed.outcome == 'success'
+        run: |
+          terramate run \
+            --changed \
+            --parallel 5 \
+            --mock-on-fail \
+            --enable-sharing \
+            --continue-on-error \
+            -- \
+            terraform apply -auto-approve
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
