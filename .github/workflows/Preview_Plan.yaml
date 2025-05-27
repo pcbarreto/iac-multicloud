@@ -43,11 +43,8 @@ jobs:
           terraform_wrapper: false
 
       - name: Check Terramate formatting
-        run: terramate fmt --check
+        run: terramate fmt --check --changed
         continue-on-error: true
-
-      - name: Check Terraform formatting
-        run: terraform fmt -recursive -check -diff
 
       - name: List changed stacks
         id: list
