@@ -16,10 +16,28 @@ script "preview" {
   job {
     commands = [
       ["terraform", "validate"],
-      ["terramate", "run", "--tags=dev", "--", "terraform", "plan", "-out", "plan.out", "-detailed-exitcode", "-lock=false", {
-        terraform_plan_file = "plan.out"
-        mock_on_fail        = true,
-        enable_sharing      = true,
+      ["terraform", "plan", "-out", "out.tfplan", "-detailed-exitcode", "-lock=false", {
+        sync_preview        = true
+        terraform_plan_file = "out.tfplan"
+        mock_on_fail        = true
+        enable_sharing      = true
+      }],
+    ]
+  }
+}
+
+script "deploy" {
+  name        = "Terraform Deployment"
+  description = "Run a full Terraform deployment cycle and synchronize the result to Terramate Cloud"
+
+  job {
+    commands = [
+      ["terraform", "validate"],
+      ["terraform", "plan", "-out", "out.tfplan", "-lock=false"],
+      ["terraform", "apply", "-input=false", "-auto-approve", "-lock-timeout=5m", "out.tfplan", {
+        sync_deployment     = true
+        terraform_plan_file = "out.tfplan"
+        enable_sharing      = true
       }],
     ]
   }

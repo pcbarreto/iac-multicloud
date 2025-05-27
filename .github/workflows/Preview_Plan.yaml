@@ -64,7 +64,11 @@ jobs:
       - name: Run Terraform init in all changed stacks
         if: steps.list-changed.outputs.stdout
         run: |
-          terramate run --changed --parallel 1 -- terraform init
+            terramate script run \
+            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+            --changed \
+            --parallel 1 \
+            init
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
@@ -73,7 +77,13 @@ jobs:
         id: plan-changed
         if: steps.list-changed.outputs.stdout
         run: |
-          terramate run --changed --parallel 5 --mock-on-fail --enable-sharing --continue-on-error -- terraform plan -out plan.tfplan
+          terramate script run \
+            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+            --changed \
+            --parallel 5 \
+            --continue-on-error \
+            -- \
+            preview
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
@@ -81,7 +91,11 @@ jobs:
       - name: Apply Terraform changes stacks
         if: steps.plan-changed.outcome == 'success'
         run: |
-          terramate run --changed --parallel 5 --mock-on-fail --enable-sharing --continue-on-error -- terraform apply -auto-approve
+          terramate script run \
+            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+            --parallel 5 \
+            --changed \
+            deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}

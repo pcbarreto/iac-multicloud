@@ -7,7 +7,7 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "Version of Kubernetes to install the cluster"
   type        = string
-  default     = "1.32"
+  default     = "1.31"
 }
 
 variable "creator_admin_permissions" {
