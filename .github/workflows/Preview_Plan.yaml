@@ -45,7 +45,9 @@ jobs:
           asdf install terraform
 
       - name: Check Terramate formatting
-        run: terramate fmt --check
+        run: |
+          terramate generate
+          terramate fmt --check
 
       - name: List changed stacks
         id: list-changed
