@@ -30,9 +30,9 @@ module "eks" {
     }
   }
 
-  vpc_id                   = var.vpc_id
-  subnet_ids               = var.private_subnets
-  control_plane_subnet_ids = var.intra_subnets
+  vpc_id                   = data.terraform_remote_state.vpc.outputs.vpc_id
+  subnet_ids               = data.terraform_remote_state.vpc.outputs.private_subnets
+  control_plane_subnet_ids = data.terraform_remote_state.vpc.outputs.intra_subnets
 
   eks_managed_node_groups = {
     karpenter = {
