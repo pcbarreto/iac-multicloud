@@ -9,14 +9,14 @@ env:
   AWS_REGION: "us-east-1"
   TF_WORKSPACE: "dev"
 
+  defaults:
+    run:
+      shell: bash
 
 jobs:
   Preview:
     name: Plan Terraform changes in changed stacks
     runs-on: ubuntu-latest
-
-    defaults:
-      shell: bash
 
     permissions:
       id-token: write
