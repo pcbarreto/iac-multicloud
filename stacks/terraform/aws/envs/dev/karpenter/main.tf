@@ -11,11 +11,11 @@ resource "helm_release" "karpenter" {
   values = [
     <<-EOT
     serviceAccount:
-      name: ${module.karpenter.service_account}
+      name: ${var.karpenter_service_account}
     settings:
       clusterName: ${var.cluster_name}
       clusterEndpoint: ${var.cluster_endpoint}
-      interruptionQueue: ${module.karpenter.queue_name}
+      interruptionQueue: ${var.karpenter_queue_name}
     EOT
   ]
 
@@ -34,7 +34,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
       name: default
     spec:
       detailedMonitoring: true
-      role: ${module.karpenter.node_iam_role_name}
+      role: ${var.karpenter_node_iam_role_name}
       amiFamily: AL2023
       amiSelectorTerms:
         - tags:

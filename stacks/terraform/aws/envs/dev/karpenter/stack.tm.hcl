@@ -41,3 +41,24 @@ input "ami_type" {
   value         = "AL2023_x86_64_STANDARD"
   mock          = "AL2023_x86_64_STANDARD"
 }
+
+input "karpenter_service_account" {
+    backend       = "default"
+    from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
+    value         = outputs.karpenter_service_account.value
+    mock          = "karpenter-service-account"
+}
+
+input "karpenter_queue_name" {
+    backend       = "default"
+    from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
+    value         = outputs.karpenter_queue_name.value
+    mock          = "karpenter-queue"
+}
+
+input "karpenter_node_iam_role_name" {
+    backend       = "default"
+    from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
+    value         = outputs.karpenter_node_iam_role_name.value
+    mock          = "karpenter-node-role"
+}

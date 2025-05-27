@@ -46,8 +46,27 @@ output "cluster_endpoint" {
   value     = module.eks.cluster_endpoint
   sensitive = false
 }
+
 output "cluster_certificate_authority_data" {
   backend   = "default"
   value     = module.eks.cluster_certificate_authority_data
   sensitive = true
+}
+
+output "karpenter_service_account" {
+  backend   = "default"
+  value     = module.karpenter.service_account
+  sensitive = false
+}
+
+output "karpenter_queue_name" {
+    backend   = "default"
+    value     = module.karpenter.queue_name
+    sensitive = false
+}
+
+output "karpenter_node_iam_role_name" {
+    backend   = "default"
+    value     = module.karpenter.node_iam_role_name
+    sensitive = false
 }
