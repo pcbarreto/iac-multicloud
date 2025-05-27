@@ -77,13 +77,12 @@ jobs:
         id: plan-changed
         if: steps.list-changed.outputs.stdout
         run: |
-          terramate script run \
-            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+          terramate run \
             --changed \
             --parallel 1 \
             --continue-on-error \
             -- \
-            preview
+            terraform plan -out out.tfplan
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
@@ -91,12 +90,11 @@ jobs:
       - name: Apply Terraform changes stacks
         if: steps.plan-changed.outcome == 'success'
         run: |
-          terramate script run \
-            -C stacks/terraform/aws/envs/${{ env.TF_WORKSPACE }} \
+          terramate run \           
             --parallel 5 \
             --changed \
             -- \
-            deploy
+            terraform apply -auto-approve out.tfplan
         env:
           GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
