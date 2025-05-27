@@ -3,12 +3,10 @@ data "aws_eks_cluster_auth" "auth" {
 }
 
 data "terraform_remote_state" "vpc" {
-  backend = "remote"
-  key    = "vpc/stacks-terraform.tfstate"
-  region = "us-east-1"
+  backend = "s3"
   config = {
-    workspaces = {
-      name = "dev"
-    }
+    bucket = "poc-multicloud-tfstate"
+    key    = "vpc/stacks-terraform.tfstate"
+    region = "us-east-1"
   }
 }
