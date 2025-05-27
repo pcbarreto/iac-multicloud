@@ -25,7 +25,7 @@ resource "helm_release" "karpenter" {
   # repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   # repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart   = "karpenter"
-  version = "1.5.0"
+  version = "1.1.0"
   wait    = false
 
   values = [
@@ -34,7 +34,7 @@ resource "helm_release" "karpenter" {
       name: ${module.karpenter.service_account}
     settings:
       clusterName: ${var.cluster_name}
-      clusterEndpoint: ${data.terraform_remote_state.eks.outputs.cluster_endpoint}
+      clusterEndpoint: ${module.eks.cluster_endpoint}
       interruptionQueue: ${module.karpenter.queue_name}
     EOT
   ]
