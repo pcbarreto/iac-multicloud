@@ -33,6 +33,7 @@ script "deploy" {
       ["terraform", "validate"],
       ["terraform", "plan", "-out", "out.tfplan", "-lock=false"],
       ["terraform", "apply", "-input=false", "-auto-approve", "-lock-timeout=5m","out.tfplan", {
+        terraform_plan_file = "out.tfplan"
         enable_sharing      = true
         mock_on_fail        = true
       }],
