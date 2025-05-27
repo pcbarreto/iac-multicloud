@@ -4,7 +4,7 @@ data "aws_eks_cluster_auth" "auth" {
 data "aws_availability_zones" "available" {}
 
 data "terraform_remote_state" "vpc" {
-  backend = "remote"
+  backend = "s3"
 
   config = {
     bucket = "poc-multi-cloud-tfstate"
