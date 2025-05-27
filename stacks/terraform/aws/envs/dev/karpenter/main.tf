@@ -5,7 +5,7 @@ module "karpenter" {
   cluster_name                    = var.cluster_name
   enable_v1_permissions           = true
   enable_pod_identity             = true
-  # create_pod_identity_association = true
+  create_pod_identity_association = true
 
   node_iam_role_additional_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
@@ -34,7 +34,7 @@ resource "helm_release" "karpenter" {
       name: ${module.karpenter.service_account}
     settings:
       clusterName: ${var.cluster_name}
-      clusterEndpoint: ${module.eks.cluster_endpoint}
+      clusterEndpoint: ${var.cluster_endpoint}
       interruptionQueue: ${module.karpenter.queue_name}
     EOT
   ]
