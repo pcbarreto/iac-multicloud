@@ -46,7 +46,7 @@ jobs:
 
       - name: Check Terramate formatting
         run: |
-          terramate generate
+          terramate generate --changed
           terramate fmt --check
 
       - name: List changed stacks
