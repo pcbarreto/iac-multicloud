@@ -2,7 +2,7 @@ name: Terraform Preview
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - feature/*
 env:
