@@ -1,8 +1,8 @@
 data "aws_eks_cluster_auth" "auth" {
-  name       = var.cluster_name
+  name       = data.terraform_remote_state.eks.outputs.cluster_name
 }
 data "aws_eks_cluster" "eks" {
-  name = var.cluster_name
+  name = data.terraform_remote_state.eks.outputs.cluster_name
 }
 data "terraform_remote_state" "eks" {
   backend = "s3"
