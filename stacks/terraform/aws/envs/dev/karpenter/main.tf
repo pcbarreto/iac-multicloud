@@ -59,25 +59,25 @@ resource "kubectl_manifest" "karpenter_node_class" {
       name: default
     spec:
       detailedMonitoring: true
-      role: ${module.karpenter.node_iam_role_name}
+      role: "${module.karpenter.node_iam_role_name}"
       amiFamily: AL2023
       amiSelectorTerms:
         - tags:
-            karpenter.sh/discovery: ${var.cluster_name}
+            karpenter.sh/discovery: "${var.cluster_name}"
       subnetSelectorTerms:
         - tags:
-            karpenter.sh/discovery: ${var.cluster_name}
+            karpenter.sh/discovery: "${var.cluster_name}"
       securityGroupSelectorTerms:
         - tags:
-            karpenter.sh/discovery: ${var.cluster_name}
+            karpenter.sh/discovery: "${var.cluster_name}"
       tags:
-        karpenter.sh/discovery: ${var.cluster_name}
-    blockDeviceMappings:
-      - deviceName: /dev/xvda
-        ebs:
-          volumeType: gp3
-          volumeSize: 20Gi
-          deleteOnTermination: true
+        karpenter.sh/discovery: "${var.cluster_name}"
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeType: gp3
+            volumeSize: 20Gi
+            deleteOnTermination: true
   YAML
 
   depends_on = [
@@ -99,23 +99,14 @@ resource "kubectl_manifest" "karpenter_node_pool" {
             kind: EC2NodeClass
             name: default
           requirements:
-            - key: "karpenter.k8s.aws/instance-category"
-              operator: In
-              values: ["t"]
             - key: "karpenter.k8s.aws/instance-family"
               operator: In
-              values: ["t3","t3a"]
+              values: ["t3", "t3a"]
             - key: "karpenter.k8s.aws/instance-size"
               operator: NotIn
               values: ["nano", "micro", "small"]
             - key: "karpenter.k8s.aws/instance-cpu"
               operator: In
-              values: ["2"]
-            - key: "karpenter.k8s.aws/instance-hypervisor"
-              operator: In
-              values: ["nitro"]
-            - key: "karpenter.k8s.aws/instance-generation"
-              operator: Gt
               values: ["2"]
             - key: "kubernetes.io/arch"
               operator: In
