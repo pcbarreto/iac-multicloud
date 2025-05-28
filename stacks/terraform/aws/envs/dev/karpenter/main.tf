@@ -59,7 +59,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
       name: default
     spec:
       detailedMonitoring: true
-      role: "${module.karpenter.node_iam_role_name}"
+      role: "KarpenterNodeRole-${var.cluster_name}"
       amiFamily: AL2023
       amiSelectorTerms:
         - tags:
