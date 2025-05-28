@@ -122,7 +122,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
       role: "${module.karpenter.iam_role_name}"
       amiFamily: AL2023
       amiSelectorTerms:
-        - tags: {}
+        - tags:
+            karpenter.sh/discovery: "${var.cluster_name}"
       subnetSelectorTerms:
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
@@ -180,7 +181,4 @@ resource "kubectl_manifest" "karpenter_node_pool" {
         consolidateAfter: 60s
   YAML
 
-  depends_on = [
-    kubectl_manifest.karpenter_node_class
-  ]
 }
