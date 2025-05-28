@@ -9,9 +9,7 @@ module "vpc" {
   private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 4, k)]
   public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
   intra_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
-  # database_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 56)]
 
-  create_database_subnet_group = true
   enable_nat_gateway           = var.enable_nat_gateway
   single_nat_gateway           = var.single_nat_gateway
   one_nat_gateway_per_az       = var.one_nat_gateway_per_az
@@ -22,7 +20,6 @@ module "vpc" {
 
   private_subnet_tags = {
     "kubernetes.io/role/internal-elb" = 1
-    "karpenter.sh/discovery"          = var.cluster_name
   }
 
   tags = {
