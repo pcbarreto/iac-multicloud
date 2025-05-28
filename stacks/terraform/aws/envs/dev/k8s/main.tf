@@ -7,7 +7,7 @@ module "eks" {
 
   enable_cluster_creator_admin_permissions = var.creator_admin_permissions
   cluster_endpoint_public_access           = var.cluster_endpoint_public_access
-  authentication_mode                      = "API_AND_CONFIG_MAP"
+  authentication_mode                      = "API"
   enable_irsa                              = true
 
   cluster_addons = {
