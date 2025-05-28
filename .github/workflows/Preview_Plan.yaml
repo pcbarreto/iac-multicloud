@@ -31,12 +31,6 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::471112698499:role/terraform
-
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
         with:
@@ -56,6 +50,12 @@ jobs:
         id: list
         run: terramate list --changed
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::471112559300:role/terraform
+
       - name: Initialize Terraform in changed stacks
         if: steps.list.outputs.stdout
         id: init
@@ -66,8 +66,8 @@ jobs:
             -- \
             terraform init -lock-timeout=5m
         env:
-          GITHUB_TOKEN: ${{ github.token }}
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+#          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Validate Terraform configuration in changed stacks
         if: steps.list.outputs.stdout
@@ -84,6 +84,8 @@ jobs:
       - name: Plan Terraform changes in changed stacks
         if: steps.list.outputs.stdout
         id: plan
+        max_attempts: 2
+        retry_wait_seconds: 5
         run: |
           terramate run \
             --parallel 5 \
@@ -96,12 +98,15 @@ jobs:
 
       - name: Apply Terraform changes stacks
         if: steps.plan.outcome == 'success'
+        max_attempts: 2
+        retry_wait_seconds: 5
         run: |
           terramate run \
             --parallel 5 \
             --changed \
             --enable-sharing \
+            --mock-on-fail \
             -- terraform apply -auto-approve
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
+#          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
