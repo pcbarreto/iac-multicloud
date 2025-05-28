@@ -23,9 +23,9 @@ terraform {
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint
-    # cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+    cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data)
     token                  = data.aws_eks_cluster_auth.auth.token
-    #
+
     exec {
       api_version = "client.authentication.k8s.io/v1"
       command     = "aws"
@@ -38,7 +38,7 @@ provider "kubectl" {
   apply_retry_count      = 5
   host                   = var.cluster_endpoint
   token                  = data.aws_eks_cluster_auth.auth.token
-  # cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+  cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data)
   load_config_file       = false
 
   exec {
