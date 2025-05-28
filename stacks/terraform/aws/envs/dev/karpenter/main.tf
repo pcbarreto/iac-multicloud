@@ -61,6 +61,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
       detailedMonitoring: true
       role: "${module.karpenter.iam_role_name}"
       amiFamily: AL2023
+      amiSelectorTerms:
+        - {}
       subnetSelectorTerms:
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
