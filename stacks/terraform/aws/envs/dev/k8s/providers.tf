@@ -29,7 +29,7 @@ provider "helm" {
     exec {
       api_version = "client.authentication.k8s.io/v1"
       command     = "aws"
-      args        = ["k8s", "get-token", "--cluster-name", var.cluster_name]
+      args        = ["k8s", "get-token", "--cluster-name", module.eks.cluster_name]
     }
   }
 }
@@ -37,6 +37,7 @@ provider "helm" {
 provider "kubectl" {
   apply_retry_count      = 5
   host                   = module.eks.cluster_endpoint
+  token                  = data.aws_eks_cluster_auth.auth.token
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   load_config_file       = false
 
