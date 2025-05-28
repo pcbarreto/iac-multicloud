@@ -59,11 +59,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
       name: default
     spec:
       detailedMonitoring: true
-      role: KarpenterNodeRole-${var.cluster_name}
+      role: "${module.karpenter.iam_role_name}"
       amiFamily: AL2023
-      amiSelectorTerms:
-        - tags:
-            karpenter.sh/discovery: "${var.cluster_name}"
       subnetSelectorTerms:
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
@@ -80,9 +77,9 @@ resource "kubectl_manifest" "karpenter_node_class" {
             deleteOnTermination: true
   YAML
 
-  depends_on = [
-    helm_release.karpenter
-  ]
+  # depends_on = [
+  #   helm_release.karpenter
+  # ]
 }
 
 resource "kubectl_manifest" "karpenter_node_pool" {
@@ -117,11 +114,11 @@ resource "kubectl_manifest" "karpenter_node_pool" {
       limits:
         cpu: 1000
       disruption:
-        consolidationPolicy: WhenEmpty
-        consolidateAfter: 30s
+        consolidationPolicy: WhenEmptyOrUnderutilized
+        consolidateAfter: 60s
   YAML
 
-  depends_on = [
-    kubectl_manifest.karpenter_node_class
-  ]
+  # depends_on = [
+  #   kubectl_manifest.karpenter_node_class
+  # ]
 }
