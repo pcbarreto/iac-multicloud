@@ -31,24 +31,20 @@ module "eks" {
   subnet_ids               = var.private_subnets
   control_plane_subnet_ids = var.intra_subnets
 
-  cluster_compute_config = {
-    enabled    = true
-    node_pools = ["general-purpose"]
+  eks_managed_node_group_defaults = {
+    instance_types = var.instance_types
   }
-  # eks_managed_node_group_defaults = {
-  #   instance_types = var.instance_types
-  # }
-  #
-  # eks_managed_node_groups = {
-  #   managed_node = {
-  #     ami_type       = var.ami_type
-  #     instance_types = var.instance_types
-  #
-  #     min_size     = var.min_size
-  #     max_size     = var.max_size
-  #     desired_size = var.desired_size
-  #   }
-  # }
+
+  eks_managed_node_groups = {
+    managed_node = {
+      ami_type       = var.ami_type
+      instance_types = var.instance_types
+
+      min_size     = var.min_size
+      max_size     = var.max_size
+      desired_size = var.desired_size
+    }
+  }
 
   tags = {
     ManagedBy   = "Terraform"

@@ -49,6 +49,6 @@ variable "max_size" {
 variable "desired_size" {
   description = "Desired number of nodes for the cluster."
   type        = number
-  default     = 2
+  default     = 3
 }
 
