@@ -40,7 +40,7 @@ module "eks" {
       ami_type       = var.ami_type
       instance_types = var.instance_types
 
-      min_size     = var.max_size
+      min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
     }
