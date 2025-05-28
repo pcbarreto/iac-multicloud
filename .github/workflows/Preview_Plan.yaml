@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::471112931336:role/terraform
+          role-to-assume: arn:aws:iam::471112698499:role/terraform
 
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
