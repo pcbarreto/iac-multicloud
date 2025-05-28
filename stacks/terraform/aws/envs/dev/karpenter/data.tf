@@ -9,7 +9,4 @@ data "terraform_remote_state" "eks" {
     key    = "env:/dev/k8s/stacks-terraform.tfstate"
     region = "us-east-1"
   }
-  depends_on = [
-    module.eks
-  ]
 }
