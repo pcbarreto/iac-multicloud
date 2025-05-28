@@ -11,7 +11,6 @@ stack {
   after = [
     "tag:vpc"
   ]
-
 }
 
 input "vpc_id" {

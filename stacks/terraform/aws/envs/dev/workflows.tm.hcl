@@ -11,7 +11,7 @@ script "init" {
 
 script "preview" {
   name        = "Terraform Deployment Preview"
-  description = "Create a preview of Terraform changes and synchronize it to Terramate Cloud"
+  description = "Create a preview of Terraform changes"
 
   job {
     commands = [
@@ -27,7 +27,7 @@ script "preview" {
 
 script "deploy" {
   name        = "Terraform Deployment"
-  description = "Run a full Terraform deployment cycle and synchronize the result to Terramate Cloud"
+  description = "Run a full Terraform deployment cycle"
 
   job {
     commands = [

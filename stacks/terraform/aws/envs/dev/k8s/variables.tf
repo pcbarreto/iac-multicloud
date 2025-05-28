@@ -25,7 +25,7 @@ variable "cluster_endpoint_public_access" {
 variable "ami_type" {
   description = "The type of the AMI to use for the instances."
   type        = string
-  default     = "AL2023_x86_64_STANDARD"
+  default     = "BOTTLEROCKET_x86_64"
 }
 
 variable "instance_types" {

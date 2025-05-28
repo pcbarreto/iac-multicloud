@@ -42,10 +42,6 @@ jobs:
           terraform_version: 1.12.1
           terraform_wrapper: false
 
-      - name: Check Terramate formatting
-        run: terramate fmt --check --changed
-        continue-on-error: true
-
       - name: List changed stacks
         id: list
         run: terramate list --changed
@@ -54,7 +50,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::471112559300:role/terraform
+          role-to-assume: arn:aws:iam::767397692205:role/github
 
       - name: Initialize Terraform in changed stacks
         if: steps.list.outputs.stdout
@@ -67,7 +63,6 @@ jobs:
             terraform init -lock-timeout=5m
         env:
           TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
-#          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Validate Terraform configuration in changed stacks
         if: steps.list.outputs.stdout
@@ -103,6 +98,3 @@ jobs:
             --enable-sharing \
             --mock-on-fail \
             -- terraform apply -auto-approve
-#        env:
-#          GITHUB_TOKEN: ${{ github.token }}
-#          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
