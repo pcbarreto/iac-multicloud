@@ -94,7 +94,7 @@ resource "helm_release" "karpenter" {
   }
   set {
     name  = "settings.clusterEndpoint"
-    value = var.cluster_endpoint
+    value = module.eks.cluster_endpoint
   }
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
