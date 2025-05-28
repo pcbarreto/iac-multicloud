@@ -101,10 +101,10 @@ resource "kubectl_manifest" "karpenter_node_pool" {
           requirements:
             - key: "karpenter.k8s.aws/instance-category"
               operator: In
-              values: ["t", "m"]
+              values: ["t"]
             - key: "karpenter.k8s.aws/instance-family"
               operator: In
-              values: ["t3","t3a","t4g","m5"]
+              values: ["t3","t3a"]
             - key: "karpenter.k8s.aws/instance-size"
               operator: NotIn
               values: ["nano", "micro", "small"]
