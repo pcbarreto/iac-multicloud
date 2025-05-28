@@ -51,76 +51,76 @@ resource "helm_release" "karpenter" {
   ]
 }
 
-# resource "kubectl_manifest" "karpenter_node_class" {
-#   yaml_body = <<-YAML
-#     apiVersion: karpenter.k8s.aws/v1
-#     kind: EC2NodeClass
-#     metadata:
-#       name: default
-#     spec:
-#       detailedMonitoring: true
-#       role: "${module.karpenter.iam_role_name}"
-#       amiFamily: AL2023
-#       amiSelectorTerms:
-#         - tags: {}
-#       subnetSelectorTerms:
-#         - tags:
-#             karpenter.sh/discovery: "${var.cluster_name}"
-#       securityGroupSelectorTerms:
-#         - tags:
-#             karpenter.sh/discovery: "${var.cluster_name}"
-#       tags:
-#         karpenter.sh/discovery: "${var.cluster_name}"
-#       blockDeviceMappings:
-#         - deviceName: /dev/xvda
-#           ebs:
-#             volumeType: gp3
-#             volumeSize: 20Gi
-#             deleteOnTermination: true
-#   YAML
-#
-#   # depends_on = [
-#   #   helm_release.karpenter
-#   # ]
-# }
-#
-# resource "kubectl_manifest" "karpenter_node_pool" {
-#   yaml_body = <<-YAML
-#     apiVersion: karpenter.sh/v1
-#     kind: NodePool
-#     metadata:
-#       name: default
-#     spec:
-#       template:
-#         spec:
-#           nodeClassRef:
-#             group: karpenter.k8s.aws
-#             kind: EC2NodeClass
-#             name: default
-#           requirements:
-#             - key: "karpenter.k8s.aws/instance-family"
-#               operator: In
-#               values: ["t3", "t3a"]
-#             - key: "karpenter.k8s.aws/instance-size"
-#               operator: NotIn
-#               values: ["nano", "micro", "small"]
-#             - key: "karpenter.k8s.aws/instance-cpu"
-#               operator: In
-#               values: ["2"]
-#             - key: "kubernetes.io/arch"
-#               operator: In
-#               values: ["amd64"]
-#             - key: "karpenter.sh/capacity-type"
-#               operator: In
-#               values: ["on-demand"]
-#       limits:
-#         cpu: 1000
-#       disruption:
-#         consolidationPolicy: WhenEmptyOrUnderutilized
-#         consolidateAfter: 60s
-#   YAML
-#
-#   # depends_on = [
-#   #   kubectl_manifest.karpenter_node_class
-#   # ]
-# }
+resource "kubectl_manifest" "karpenter_node_class" {
+  yaml_body = <<-YAML
+    apiVersion: karpenter.k8s.aws/v1
+    kind: EC2NodeClass
+    metadata:
+      name: default
+    spec:
+      detailedMonitoring: true
+      role: "${module.karpenter.iam_role_name}"
+      amiFamily: AL2023
+      amiSelectorTerms:
+        - tags: {}
+      subnetSelectorTerms:
+        - tags:
+            karpenter.sh/discovery: "${var.cluster_name}"
+      securityGroupSelectorTerms:
+        - tags:
+            karpenter.sh/discovery: "${var.cluster_name}"
+      tags:
+        karpenter.sh/discovery: "${var.cluster_name}"
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeType: gp3
+            volumeSize: 20Gi
+            deleteOnTermination: true
+  YAML
+
+  # depends_on = [
+  #   helm_release.karpenter
+  # ]
+}
+
+resource "kubectl_manifest" "karpenter_node_pool" {
+  yaml_body = <<-YAML
+    apiVersion: karpenter.sh/v1
+    kind: NodePool
+    metadata:
+      name: default
+    spec:
+      template:
+        spec:
+          nodeClassRef:
+            group: karpenter.k8s.aws
+            kind: EC2NodeClass
+            name: default
+          requirements:
+            - key: "karpenter.k8s.aws/instance-family"
+              operator: In
+              values: ["t3", "t3a"]
+            - key: "karpenter.k8s.aws/instance-size"
+              operator: NotIn
+              values: ["nano", "micro", "small"]
+            - key: "karpenter.k8s.aws/instance-cpu"
+              operator: In
+              values: ["2"]
+            - key: "kubernetes.io/arch"
+              operator: In
+              values: ["amd64"]
+            - key: "karpenter.sh/capacity-type"
+              operator: In
+              values: ["on-demand"]
+      limits:
+        cpu: 1000
+      disruption:
+        consolidationPolicy: WhenEmptyOrUnderutilized
+        consolidateAfter: 60s
+  YAML
+
+  # depends_on = [
+  #   kubectl_manifest.karpenter_node_class
+  # ]
+}
