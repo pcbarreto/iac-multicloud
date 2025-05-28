@@ -120,7 +120,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
     spec:
       detailedMonitoring: true
       role: "${module.karpenter.iam_role_name}"
-      amiFamily: BOTTLEROCKET
+      amiFamily: AL2023
       amiSelectorTerms:
         - tags: {}
       subnetSelectorTerms:
