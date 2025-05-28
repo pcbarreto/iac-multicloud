@@ -29,7 +29,7 @@ provider "helm" {
     exec {
       api_version = "client.authentication.k8s.io/v1"
       command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+      args        = ["eks", "get-token", "--cluster-name", data.terraform_remote_state.eks.outputs.cluster_name]
     }
   }
 }
@@ -43,7 +43,7 @@ provider "kubectl" {
   exec {
     api_version = "client.authentication.k8s.io/v1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    args        = ["eks", "get-token", "--cluster-name", data.terraform_remote_state.eks.outputs.cluster_name]
   }
 }
 provider "aws" {
