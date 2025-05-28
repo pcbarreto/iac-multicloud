@@ -17,7 +17,7 @@ input "vpc_id" {
   backend       = "default"
   from_stack_id = "b3d2a2f3-be45-4950-bd10-66da2d727414"
   value         = outputs.vpc_id.value
-  mock          = "vpc_12345678"
+  mock          = "vpc-12342255678"
 }
 
 input "intra_subnets" {
