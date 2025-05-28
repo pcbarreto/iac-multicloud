@@ -1,5 +1,5 @@
 data "aws_eks_cluster_auth" "auth" {
-  name       = data.terraform_remote_state.eks.outputs.cluster_name
+  name = data.terraform_remote_state.eks.outputs.cluster_name
 }
 
 data "aws_eks_cluster" "eks" {

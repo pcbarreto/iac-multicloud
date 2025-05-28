@@ -1,13 +1,13 @@
-stack {
-  name        = "AWS Resources Dev"
-  description = "Stack to manage the main Resources"
-  id          = "b6a03fda-6f82-4726-8ad8-b5956f5a511f"
-
-  tags        = ["resources", "dev"]
-  after = [
-    "tag:eks"
-  ]
-}
+# stack {
+#   name        = "AWS Resources Dev"
+#   description = "Stack to manage the main Resources"
+#   id          = "b6a03fda-6f82-4726-8ad8-b5956f5a511f"
+#
+#   tags        = ["resources", "dev"]
+#   after = [
+#     "tag:eks"
+#   ]
+# }
 
 # input "cluster_name" {
 #   backend       = "default"

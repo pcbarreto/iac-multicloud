@@ -8,6 +8,7 @@ module "eks" {
   enable_cluster_creator_admin_permissions = var.creator_admin_permissions
   cluster_endpoint_public_access           = var.cluster_endpoint_public_access
   authentication_mode                      = "API_AND_CONFIG_MAP"
+  enable_irsa                              = true
 
   cluster_addons = {
     coredns = {
@@ -31,21 +32,24 @@ module "eks" {
   subnet_ids               = var.private_subnets
   control_plane_subnet_ids = var.intra_subnets
 
-  eks_managed_node_group_defaults = {
-    instance_types = var.instance_types
-  }
-
   eks_managed_node_groups = {
-    managed_node = {
+    karpenter = {
       ami_type       = var.ami_type
       instance_types = var.instance_types
 
       min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
+
+      labels = {
+        # Used to ensure Karpenter runs on nodes that it does not manage
+        "karpenter.sh/controller" = "true"
+      }
     }
   }
-
+  node_security_group_tags = {
+    "karpenter.sh/discovery" = var.cluster_name
+  }
   tags = {
     ManagedBy   = "Terraform"
     Owner       = "Platform Engeneering"

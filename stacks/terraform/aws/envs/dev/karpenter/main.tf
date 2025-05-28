@@ -1,23 +1,45 @@
+module "karpenter" {
+  source  = "terraform-aws-modules/eks/aws//modules/karpenter"
+  version = "20.36.0"
+
+  cluster_name          = var.cluster_name
+  enable_v1_permissions = true
+  enable_pod_identity   = true
+
+  node_iam_role_additional_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
+
+  tags = {
+    ManagedBy   = "Terraform"
+    Owner       = "Platform Engeneering"
+    Environment = "dev"
+  }
+}
+
 resource "helm_release" "karpenter" {
-  namespace  = "kube-system"
-  name       = "karpenter"
-  repository = "oci://public.ecr.aws/karpenter"
+  namespace        = "karpenter"
+  create_namespace = true
+  name             = "karpenter"
+  repository       = "oci://public.ecr.aws/karpenter"
   # repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   # repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart   = "karpenter"
-  version = "1.1.0"
+  version = "1.5.0"
   wait    = false
 
-  values = [
-    <<-EOT
-    serviceAccount:
-      name: ${var.karpenter_service_account}
-    settings:
-      clusterName: ${var.cluster_name}
-      clusterEndpoint: ${var.cluster_endpoint}
-      interruptionQueue: ${var.karpenter_queue_name}
-    EOT
-  ]
+  set {
+    name  = "settings.clusterName"
+    value = var.cluster_name
+  }
+  set {
+    name  = "settings.clusterEndpoint"
+    value = var.cluster_endpoint
+  }
+  set {
+    name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.karpenter_controller_role.iam_role_arn
+  }
 
   # lifecycle {
   #   ignore_changes = [
@@ -76,10 +98,10 @@ resource "kubectl_manifest" "karpenter_node_pool" {
           requirements:
             - key: "karpenter.k8s.aws/instance-category"
               operator: In
-              values: ["t"]
+              values: ["t", "m"]
             - key: "karpenter.k8s.aws/instance-family"
               operator: In
-              values: ["t3","t3a","t4g"]
+              values: ["t3","t3a","t4g","m5"]
             - key: "karpenter.k8s.aws/instance-size"
               operator: NotIn
               values: ["nano", "micro", "small"]

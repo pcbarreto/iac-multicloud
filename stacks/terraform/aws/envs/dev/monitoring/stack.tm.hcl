@@ -1,13 +1,13 @@
-stack {
-  name        = "AWS LGTM Monitoring Dev"
-  description = "Observality stack for AWS"
-  id          = "05dce857-e9a1-4f3b-9438-58ed00066713"
-  tags        = ["lgtm", "dev"]
-
-  after = [
-    "tag:eks"
-  ]
-}
+# stack {
+#   name        = "AWS LGTM Monitoring Dev"
+#   description = "Observality stack for AWS"
+#   id          = "05dce857-e9a1-4f3b-9438-58ed00066713"
+#   tags        = ["lgtm", "dev"]
+#
+#   after = [
+#     "tag:eks"
+#   ]
+# }
 
 # input "cluster_name" {
 #   backend       = "default"
