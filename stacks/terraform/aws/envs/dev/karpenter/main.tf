@@ -46,6 +46,9 @@ resource "helm_release" "karpenter" {
   #     repository_password
   #   ]
   # }
+  depends_on = [
+    module.karpenter
+  ]
 }
 
 resource "kubectl_manifest" "karpenter_node_class" {
