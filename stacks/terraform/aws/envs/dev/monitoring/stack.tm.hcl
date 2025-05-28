@@ -5,9 +5,7 @@ stack {
   tags        = ["lgtm", "dev"]
 
   after = [
-    "tag:vpc",
-    "tag:eks",
-    "tag:karpenter"
+    "tag:eks"
   ]
 }
 
