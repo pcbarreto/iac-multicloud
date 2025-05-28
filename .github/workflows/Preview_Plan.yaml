@@ -93,9 +93,6 @@ jobs:
             --continue-on-error \
             -- \
             terraform plan -out out.tfplan -lock=false
-        with:
-          max_attempts: 2
-          retry_wait_seconds: 5
 
       - name: Apply Terraform changes stacks
         if: steps.plan.outcome == 'success'
@@ -106,9 +103,6 @@ jobs:
             --enable-sharing \
             --mock-on-fail \
             -- terraform apply -auto-approve
-        with:
-          max_attempts: 2
-          retry_wait_seconds: 5
 #        env:
 #          GITHUB_TOKEN: ${{ github.token }}
 #          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
