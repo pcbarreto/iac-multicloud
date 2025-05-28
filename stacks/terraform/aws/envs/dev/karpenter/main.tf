@@ -38,7 +38,7 @@ resource "helm_release" "karpenter" {
   }
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.karpenter_controller_role.iam_role_arn
+    value = module.karpenter.iam_role_arn
   }
 
   # lifecycle {
