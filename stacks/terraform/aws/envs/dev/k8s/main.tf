@@ -45,11 +45,21 @@ module "eks" {
         # Used to ensure Karpenter runs on nodes that it does not manage
         "karpenter.sh/controller" = "true"
       }
+
+      taints = {
+        addons = {
+          key    = "CriticalAddonsOnly"
+          value  = "true"
+          effect = "NO_SCHEDULE"
+        },
+      }
     }
   }
+
   node_security_group_tags = {
     "karpenter.sh/discovery" = var.cluster_name
   }
+
   tags = {
     ManagedBy   = "Terraform"
     Owner       = "Platform Engeneering"
@@ -57,12 +67,11 @@ module "eks" {
   }
 }
 
-
 module "karpenter" {
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
   version = "20.36.0"
 
-  cluster_name          = var.cluster_name
+  cluster_name          = module.eks.cluster_name
   enable_v1_permissions = true
   enable_pod_identity   = true
   enable_irsa           = true
@@ -83,8 +92,6 @@ resource "helm_release" "karpenter" {
   create_namespace = true
   name             = "karpenter"
   repository       = "oci://public.ecr.aws/karpenter"
-  # repository_username = data.aws_ecrpublic_authorization_token.token.user_name
-  # repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart   = "karpenter"
   version = "1.5.0"
   wait    = true
@@ -102,16 +109,6 @@ resource "helm_release" "karpenter" {
     value = module.karpenter.queue_name
   }
 
-  # set {
-  #   name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-  #   value = module.karpenter.iam_role_arn
-  # }
-
-  # lifecycle {
-  #   ignore_changes = [
-  #     repository_password
-  #   ]
-  # }
   depends_on = [
     module.karpenter
   ]
@@ -124,8 +121,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
     metadata:
       name: karpenter-default
     spec:
-      detailedMonitoring: true
-      role: "${module.karpenter.iam_role_name}"
+      # role: "${module.karpenter.iam_role_name}"
+      instanceProfile: "${module.karpenter.instance_profile_name}"
       amiFamily: Bottlerocket
       amiSelectorTerms:
         - alias: "bottlerocket@latest"
@@ -142,6 +139,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
             volumeSize: 20Gi
             encrypted: true
             deleteOnTermination: true
+      detailedMonitoring: true
   YAML
 
   depends_on = [
@@ -158,10 +156,6 @@ resource "kubectl_manifest" "karpenter_node_pool" {
     spec:
       template:
         spec:
-          nodeClassRef:
-            group: karpenter.k8s.aws
-            kind: EC2NodeClass
-            name: karpenter-default
           requirements:
             - key: "karpenter.k8s.aws/instance-family"
               operator: In
@@ -169,21 +163,29 @@ resource "kubectl_manifest" "karpenter_node_pool" {
             - key: "karpenter.k8s.aws/instance-size"
               operator: In
               values: ["micro","small","medium"]
+            - key: kubernetes.io/os
+              operator: In
+              values: ["linux"]
             - key: "karpenter.k8s.aws/instance-cpu"
               operator: In
-              values: ["1","2","4"]
+              values: ["1","2","4","8"]
             - key: "kubernetes.io/arch"
               operator: In
-              values: ["amd64", "arm64"]
+              values: ["amd64"]
             - key: "karpenter.sh/capacity-type"
               operator: In
               values: ["on-demand"]
+          nodeClassRef:
+            group: karpenter.k8s.aws
+            kind: EC2NodeClass
+            name: karpenter-default
+          expireAfter: 720h # 30 * 24h = 720h
       limits:
         cpu: 1000
         memory: 1000Gi
       disruption:
         consolidationPolicy: WhenEmptyOrUnderutilized
-        consolidateAfter: 60s
+        consolidateAfter: 1m
   YAML
 
 }
