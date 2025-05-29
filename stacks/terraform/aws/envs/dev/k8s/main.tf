@@ -121,7 +121,6 @@ resource "kubectl_manifest" "karpenter_node_class" {
     metadata:
       name: karpenter-default
     spec:
-      # role: "${module.karpenter.iam_role_name}"
       instanceProfile: "${module.karpenter.instance_profile_name}"
       amiFamily: Bottlerocket
       amiSelectorTerms:
