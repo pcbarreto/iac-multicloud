@@ -62,7 +62,7 @@ module "eks" {
   }
 
   node_security_group_tags = {
-    "karpenter.sh/discovery" = var.cluster_name
+    "karpenter.sh/discovery" = module.eks.cluster_name
   }
 
   tags = {
@@ -82,6 +82,9 @@ module "karpenter" {
 
   node_iam_role_additional_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    AmazonEKSWorkerNodePolicy = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+    AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+    AmazonEKS_CNI_Policy = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   }
 
   tags = {
