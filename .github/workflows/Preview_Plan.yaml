@@ -92,9 +92,9 @@ jobs:
       - name: Apply Terraform changes stacks
         if: steps.plan.outcome == 'success'
         run: |
-          terramate run \
+          terramate run --reverse \
             --parallel 5 \
             --changed \
             --enable-sharing \
             --mock-on-fail \
-            -- terraform apply -auto-approve
+            -- terraform destroy -auto-approve
