@@ -121,7 +121,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
     metadata:
       name: karpenter-default
     spec:
-      instanceProfile: "${module.karpenter.instance_profile_name}"
+      role: "${module.karpenter.iam_role_name}"
       amiFamily: Bottlerocket
       amiSelectorTerms:
         - alias: "bottlerocket@latest"
@@ -145,6 +145,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
     helm_release.karpenter
   ]
 }
+
+# instanceProfile: "${module.karpenter.instance_profile_name}"
 
 resource "kubectl_manifest" "karpenter_node_pool" {
   yaml_body = <<-YAML
