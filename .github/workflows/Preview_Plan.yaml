@@ -92,7 +92,7 @@ jobs:
       - name: Apply Terraform changes stacks
         if: steps.plan.outcome == 'success'
         run: |
-          terramate run --reverse \
+          terramate run \
             --parallel 5 \
             --changed \
             --enable-sharing \
