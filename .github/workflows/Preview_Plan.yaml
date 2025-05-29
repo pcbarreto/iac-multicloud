@@ -50,7 +50,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::767397692205:role/github
+          role-to-assume: arn:aws:iam::533267153156:role/github
 
       - name: Initialize Terraform in changed stacks
         if: steps.list.outputs.stdout

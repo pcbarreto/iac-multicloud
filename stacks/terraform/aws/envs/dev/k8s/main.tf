@@ -100,6 +100,10 @@ resource "helm_release" "karpenter" {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.karpenter.iam_role_arn
   }
+  set {
+    name  = "settings.interruptionQueue"
+    value = module.karpenter.queue_name
+  }
 
   # lifecycle {
   #   ignore_changes = [
@@ -122,6 +126,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
       role: "${module.karpenter.iam_role_name}"
       amiFamily: AL2023
       amiSelectorTerms:
+        - alias: al2023@latest
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
       subnetSelectorTerms:
@@ -161,13 +166,13 @@ resource "kubectl_manifest" "karpenter_node_pool" {
           requirements:
             - key: "karpenter.k8s.aws/instance-family"
               operator: In
-              values: ["t3", "t3a"]
+              values: [ "t2", "t3", "t3a", "t4g"]
             - key: "karpenter.k8s.aws/instance-size"
-              operator: NotIn
-              values: ["nano", "micro", "small"]
+              operator: In
+              values: ["micro","small","medium"]
             - key: "karpenter.k8s.aws/instance-cpu"
               operator: In
-              values: ["2"]
+              values: ["1","2","4"]
             - key: "kubernetes.io/arch"
               operator: In
               values: ["amd64"]
@@ -176,6 +181,7 @@ resource "kubectl_manifest" "karpenter_node_pool" {
               values: ["on-demand"]
       limits:
         cpu: 1000
+        memory: 1000Gi
       disruption:
         consolidationPolicy: WhenEmptyOrUnderutilized
         consolidateAfter: 60s
