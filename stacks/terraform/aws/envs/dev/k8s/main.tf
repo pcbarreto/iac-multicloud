@@ -126,7 +126,6 @@ resource "kubectl_manifest" "karpenter_node_class" {
       role: "${module.karpenter.iam_role_name}"
       amiFamily: AL2023
       amiSelectorTerms:
-        - alias: al2023@latest
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
       subnetSelectorTerms:
