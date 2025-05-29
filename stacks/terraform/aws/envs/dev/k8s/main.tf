@@ -134,8 +134,8 @@ resource "kubectl_manifest" "karpenter_node_class" {
       securityGroupSelectorTerms:
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
-      tags:
-        karpenter.sh/discovery: "${var.cluster_name}"
+        - tags:
+          karpenter.sh/discovery: "${var.cluster_name}"
       blockDeviceMappings:
         - deviceName: /dev/xvda
           ebs:
