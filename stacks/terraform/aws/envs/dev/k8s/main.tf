@@ -124,9 +124,9 @@ resource "kubectl_manifest" "karpenter_node_class" {
     spec:
       detailedMonitoring: true
       role: "${module.karpenter.iam_role_name}"
-      amiFamily: AL2023
+      amiFamily: BOTTLEROCKET
       amiSelectorTerms:
-        - alias: "al2023@latest"
+        - alias: "bottlerocket@latest"
       subnetSelectorTerms:
         - tags:
             karpenter.sh/discovery: "${var.cluster_name}"
