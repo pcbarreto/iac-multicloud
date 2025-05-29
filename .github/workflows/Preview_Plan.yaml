@@ -97,4 +97,4 @@ jobs:
             --changed \
             --enable-sharing \
             --mock-on-fail \
-            -- terraform destroy -auto-approve
+            -- terraform apply -auto-approve
