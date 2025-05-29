@@ -11,21 +11,11 @@ module "eks" {
   enable_irsa                              = true
 
   cluster_addons = {
-    coredns = {
-      most_recent = true
-    }
-    kube-proxy = {
-      most_recent = true
-    }
-    vpc-cni = {
-      most_recent = true
-    }
-    aws-ebs-csi-driver = {
-      most_recent = true
-    }
-    aws-efs-csi-driver = {
-      most_recent = true
-    }
+    coredns = {}
+    kube-proxy = {}
+    vpc-cni = {}
+    aws-ebs-csi-driver = {}
+    aws-efs-csi-driver = {}
   }
 
   vpc_id                   = var.vpc_id
