@@ -27,11 +27,31 @@ module "eks_aws_auth" {
   aws_auth_users = [
     {
       userarn  = data.aws_caller_identity.current.arn
-      username = "terraform-user"
+      username = "cloud_user"
       groups   = ["system:masters"]
     }
   ]
 
+  depends_on = [
+    module.eks,
+    module.karpenter
+  ]
+}
+
+resource "aws_iam_role_policy" "karpenter_passrole" {
+  name = "karpenter-passrole"
+  role = module.karpenter.node_iam_role_name # este output existe no módulo!
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "iam:PassRole"
+        Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/KarpenterController-*"
+      }
+    ]
+  })
   depends_on = [
     module.eks,
     module.karpenter
