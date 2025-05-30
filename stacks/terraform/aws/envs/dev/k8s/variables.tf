@@ -48,7 +48,7 @@ variable "capacity_type" {
 variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
-  default     = ["t3.small", "t3.medium", "t3a.small", "t3a.medium", "t5.medium"]
+  default     = ["t3.small", "t3.medium", "t3a.small", "t3a.medium"]
 }
 
 variable "instance_types_default" {
