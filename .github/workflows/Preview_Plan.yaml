@@ -8,6 +8,9 @@ on:
 env:
   AWS_REGION: us-east-1
   TF_WORKSPACE: dev
+  TF_IN_AUTOMATION: true
+  TF_INPUT: false
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
 
 defaults:
   run:
@@ -31,6 +34,14 @@ jobs:
         ref: ${{ github.head_ref }}
         fetch-depth: 0
 
+    - name: Restore Terraform plugin cache
+      uses: actions/cache@v4
+      with:
+        path: .terraform.d/plugin-cache
+        key: terraform-plugin-cache-${{ runner.os }}-${{ hashFiles('**/*.tf') }}
+        restore-keys: |
+            terraform-plugin-cache-${{ runner.os }}-        
+
     - name: Install Terramate
       uses: terramate-io/terramate-action@v2
       with:
@@ -50,7 +61,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: arn:aws:iam::851725313390:role/github
+        role-to-assume: arn:aws:iam::211125651077:role/github
 
     - name: Initialize Terraform in changed stacks
       if: steps.list.outputs.stdout

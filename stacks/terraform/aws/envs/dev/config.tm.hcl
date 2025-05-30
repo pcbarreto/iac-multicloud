@@ -1,5 +1,5 @@
 globals "terraform" "backend" {
-  bucket = "poc-multi-cloud-tfstate"
+  bucket = "poc-multicloud-tfstate"
   region = "us-east-1"
 }
 

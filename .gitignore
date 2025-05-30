@@ -40,5 +40,5 @@ override.tf.json
 terraform.rc
 
 # others
-inflate.yaml
+test.yaml
 values.yaml

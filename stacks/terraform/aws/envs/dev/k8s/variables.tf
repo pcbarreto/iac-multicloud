@@ -9,11 +9,6 @@ variable "cluster_version" {
   type        = string
   default     = "1.33"
 }
-variable "karpenter_namespace" {
-  description = "Namespace for Karpenter"
-  type        = list(string)
-  default     = ["karpenter:karpenter"]
-}
 
 variable "creator_admin_permissions" {
   description = "Role ARN to use for administrator created on the cluster"
@@ -33,17 +28,6 @@ variable "ami_type" {
   default     = "BOTTLEROCKET_x86_64" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
 }
 
-variable "ami_type_default" {
-  description = "The type of the AMI to use for the instances."
-  type        = string
-  default     = "AL2023_x86_64_STANDARD" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
-}
-
-variable "capacity_type" {
-  description = "The capacity type for the node group."
-  type        = string
-  default     = "ON_DEMAND" # "SPOT" "ON_DEMAND"
-}
 
 variable "cluster_enabled_log_types" {
   description = "List of enabled log types for the cluster"
@@ -55,18 +39,6 @@ variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
   default     = ["t3.medium","t3a.medium"]
-}
-
-variable "instance_types_default" {
-  description = "Worker instance types for worker nodes"
-  type        = list(string)
-  default     = ["t3a.medium"]
-}
-
-variable "disk_size_default" {
-  description = "Disk size for the worker nodes in GB"
-  type        = number
-  default     = 20
 }
 
 variable "min_size" {
@@ -86,3 +58,33 @@ variable "desired_size" {
   type        = number
   default     = 2
 }
+
+# variable "capacity_type" {
+#   description = "The capacity type for the node group."
+#   type        = string
+#   default     = "ON_DEMAND" # "SPOT" "ON_DEMAND"
+# }
+
+# variable "instance_types_default" {
+#   description = "Worker instance types for worker nodes"
+#   type        = list(string)
+#   default     = ["t3a.medium"]
+# }
+
+# variable "disk_size_default" {
+#   description = "Disk size for the worker nodes in GB"
+#   type        = number
+#   default     = 20
+# }
+
+# variable "karpenter_namespace" {
+#   description = "Namespace for Karpenter"
+#   type        = list(string)
+#   default     = ["karpenter:karpenter"]
+# }
+
+# variable "ami_type_default" {
+#   description = "The type of the AMI to use for the instances."
+#   type        = string
+#   default     = "AL2023_x86_64_STANDARD" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
+# }

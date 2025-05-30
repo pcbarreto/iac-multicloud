@@ -1,17 +1,5 @@
+---
 repos:
-- repo: https://github.com/mineiros-io/pre-commit-hooks
-  rev: v0.5.1
-  hooks:
-  - id: terraform-fmt
-  - id: terramate-generate
-
-- repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.99.1
-  hooks:
-  - id: terraform_validate
-    args:
-    - --args=-json
-
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
   hooks:
@@ -31,7 +19,7 @@ repos:
   - id: check-merge-conflict
   - id: check-executables-have-shebangs
 
-      # Cross platform
+    # Cross platform
   - id: check-case-conflict
   - id: mixed-line-ending
     args: [--fix=lf]
@@ -42,19 +30,13 @@ repos:
     - --allow-missing-credentials
   - id: detect-private-key
 
-# Detect hardcoded secrets
+  # Detect hardcoded secrets
 - repo: https://github.com/gitleaks/gitleaks
   rev: v8.26.0
   hooks:
   - id: gitleaks
 
-# Dockerfile
-#- repo: https://github.com/hadolint/hadolint
-#  rev: v2.13.1-beta
-#  hooks:
-#  - id: hadolint
-
-# YAML
+  # YAML
 - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
   rev: 0.2.3
   hooks:
@@ -78,7 +60,7 @@ repos:
     ignore: |
       - .github/workflows/.*
 
-## Bash
+  # Bash
 - repo: https://github.com/jumanjihouse/pre-commit-hooks
   rev: 3.0.0
   hooks:
@@ -91,3 +73,25 @@ repos:
     - -sr
     - -w
   - id: shellcheck
+
+#- repo: https://github.com/mineiros-io/pre-commit-hooks
+#  rev: v0.5.1
+#  hooks:
+#  - id: terramate-fmt
+#  - id: terraform-validate
+#    args:
+#    - --args=-json
+#  - id: terramate-generate
+
+#- repo: https://github.com/antonbabenko/pre-commit-terraform
+#  rev: v1.99.1
+#  hooks:
+#  - id: terraform_validate
+#    args:
+#    - --args=-json
+
+# Dockerfile
+#- repo: https://github.com/hadolint/hadolint
+#  rev: v2.13.1-beta
+#  hooks:
+#  - id: hadolint
