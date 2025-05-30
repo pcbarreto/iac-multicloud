@@ -56,7 +56,7 @@ variable "min_size" {
 variable "max_size" {
   description = "Maximum number of nodes for the cluster."
   type        = number
-  default     = 4
+  default     = 7
 }
 
 variable "desired_size" {
@@ -86,7 +86,7 @@ variable "desired_size" {
 # variable "karpenter_namespace" {
 #   description = "Namespace for Karpenter"
 #   type        = list(string)
-#   default     = ["karpenter:karpenter"]
+#   default     = ["asg:asg"]
 # }
 
 # variable "ami_type_default" {

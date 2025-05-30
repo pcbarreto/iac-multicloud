@@ -10,7 +10,7 @@ module "metrics-server" {
 
   # depends_on = [
   #   # module.k8s.eks_managed_node_groups,
-  #   helm_release.karpenter,
+  #   helm_release.asg,
   #   kubectl_manifest.karpenter_node_class,
   #   kubectl_manifest.karpenter_node_pool
   # ]
@@ -28,7 +28,7 @@ module "metrics-server" {
 #
 #   # depends_on = [
 #   #   # module.k8s.eks_managed_node_groups,
-#   #   helm_release.karpenter,
+#   #   helm_release.asg,
 #   #   kubectl_manifest.karpenter_node_class,
 #   #   kubectl_manifest.karpenter_node_pool
 #   # ]

@@ -20,10 +20,22 @@ terraform {
   }
 }
 
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.auth.token
+
+  exec {
+    api_version = "client.authentication.k8s.io/v1"
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    command     = "aws"
+  }
+}
+
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint
-    cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data)
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
     token                  = data.aws_eks_cluster_auth.auth.token
 
     exec {
@@ -35,10 +47,9 @@ provider "helm" {
 }
 
 provider "kubectl" {
-  apply_retry_count      = 5
   host                   = var.cluster_endpoint
   token                  = data.aws_eks_cluster_auth.auth.token
-  cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data)
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
   load_config_file       = false
 
   exec {
@@ -47,6 +58,7 @@ provider "kubectl" {
     args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
   }
 }
+
 provider "aws" {
   region = "us-east-1"
 }

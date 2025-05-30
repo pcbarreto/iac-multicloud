@@ -50,3 +50,9 @@ output "cluster_certificate_authority_data" {
   value     = module.eks.cluster_certificate_authority_data
   sensitive = true
 }
+
+output "cluster_oidc_issuer" {
+  backend   = "default"
+  value     = module.eks.cluster_oidc_issuer
+  sensitive = false
+}
