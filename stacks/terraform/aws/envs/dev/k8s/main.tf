@@ -95,7 +95,7 @@ resource "helm_release" "karpenter_crds" {
   version             = "1.5.0"
 
   depends_on = [
-    module.eks
+    module.karpenter
   ]
 }
 
@@ -134,7 +134,7 @@ resource "helm_release" "karpenter" {
   ]
 
   depends_on = [
-    module.eks,
+    module.karpenter,
     helm_release.karpenter_crds
   ]
   lifecycle {
