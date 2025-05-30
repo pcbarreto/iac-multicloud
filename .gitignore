@@ -38,3 +38,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# others
+inflate.yaml
+values.yaml
