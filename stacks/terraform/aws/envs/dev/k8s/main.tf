@@ -38,10 +38,10 @@ module "eks" {
   }
 
   cluster_security_group_tags = {
-    "karpenter.sh/discovery" = module.eks.cluster_name
+    "karpenter.sh/discovery" = var.cluster_name
   }
   node_security_group_tags = {
-    "karpenter.sh/discovery" = module.eks.cluster_name
+    "karpenter.sh/discovery" = var.cluster_name
   }
 
   tags = {
