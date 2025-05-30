@@ -40,7 +40,7 @@ jobs:
         path: .terraform.d/plugin-cache
         key: terraform-plugin-cache-${{ runner.os }}-${{ hashFiles('**/*.tf') }}
         restore-keys: |
-            terraform-plugin-cache-${{ runner.os }}-        
+            terraform-plugin-cache-${{ runner.os }}-
 
     - name: Install Terramate
       uses: terramate-io/terramate-action@v2
@@ -52,6 +52,18 @@ jobs:
       with:
         terraform_version: 1.12.1
         terraform_wrapper: false
+
+#    - name: Create Terraform Plugin Cache Dir
+#      run: |
+#        mkdir --parents ${{ env.TF_PLUGIN_CACHE_DIR }}
+#
+#    - name: Cache Terraform
+#      uses: actions/cache@v2
+#      with:
+#        path: ${{ env.TF_PLUGIN_CACHE_DIR }}
+#        key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+#        restore-keys: |
+#          ${{ runner.os }}-terraform-
 
     - name: List changed stacks
       id: list

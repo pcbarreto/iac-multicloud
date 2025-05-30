@@ -38,6 +38,65 @@ module "eks" {
       desired_size   = var.desired_size
     }
   }
+  service_accounts = {
+    cluster_autoscaler = {
+      namespace      = "kube-system"
+      name           = "cluster-autoscaler"
+      attach_policy_arns = [aws_iam_policy.cluster_autoscaler.arn]
+    }
+  }
 
   tags = local.tags
+}
+resource "aws_iam_policy" "cluster_autoscaler" {
+  name        = "ClusterAutoscalerPolicy"
+  description = "IAM policy for the Cluster Autoscaler to manage EKS nodes"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "ec2:DescribeLaunchTemplateVersions",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeInstances",
+          "ec2:DescribeTags"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "helm_release" "cluster_autoscaler" {
+  name             = "cluster-autoscaler"
+  repository       = "https://kubernetes.github.io/autoscaler"
+  chart            = "cluster-autoscaler"
+  namespace        = "kube-system"
+  version          = "9.37.0"
+
+  values = [
+    <<-EOT
+    autoDiscovery:
+    clusterName: ${var.cluster_name}
+    awsRegion: ${var.region}
+    rbac:
+      serviceAccount:
+        create: false
+        name: ${module.eks.service_accounts["cluster_autoscaler"].name}
+    extraArgs:
+      balance-similar-node-groups: "true"
+      skip-nodes-with-system-pods: "false"
+      skip-nodes-with-local-storage: "false"
+    EOT
+  ]
+
+  depends_on = [
+    module.eks
+  ]
 }
