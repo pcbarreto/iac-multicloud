@@ -33,7 +33,6 @@ module "eks_aws_auth" {
   ]
 
   depends_on = [
-    module.eks,
     module.karpenter
   ]
 }
