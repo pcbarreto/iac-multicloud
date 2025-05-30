@@ -12,4 +12,3 @@ output "public_subnets" {
   description = "List of public subnets in the VPC"
   value       = module.vpc.public_subnets
 }
-

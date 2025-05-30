@@ -1,6 +1,6 @@
 name: Validate and Generate Terraform Docs
 on:
-  - pull_request
+- pull_request
 
 permissions:
   contents: write
@@ -20,5 +20,5 @@ jobs:
         working-dir: ./stacks/terraform
         output-file: README.md
         output-method: inject
-        git-push: "true"
-        recursive: "true"
+        git-push: 'true'
+        recursive: 'true'

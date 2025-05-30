@@ -15,11 +15,29 @@ module "eks" {
   subnet_ids               = var.private_subnets
   control_plane_subnet_ids = var.intra_subnets
 
-  cluster_compute_config = {
-    enabled    = true
-    node_pools = ["general-purpose"]
+  cluster_addons = {
+    coredns                = {
+      most_recent_version = true
+    }
+    eks-pod-identity-agent = {
+      most_recent_version = true
+    }
+    kube-proxy             = {
+      most_recent_version = true
+    }
+    vpc-cni                = {
+      most_recent_version = true
+    }
+  }
+  eks_managed_node_groups = {
+    default = {
+      ami_type       = var.ami_type
+      instance_types = var.instance_types
+      min_size       = var.min_size
+      max_size       = var.max_size
+      desired_size   = var.desired_size
+    }
   }
 
   tags = local.tags
 }
-

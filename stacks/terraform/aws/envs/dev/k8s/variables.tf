@@ -30,7 +30,7 @@ variable "cluster_endpoint_public_access" {
 variable "ami_type" {
   description = "The type of the AMI to use for the instances."
   type        = string
-  default     = "AL2023_x86_64_STANDARD" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
+  default     = "BOTTLEROCKET_x86_64" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
 }
 
 variable "ami_type_default" {
@@ -54,7 +54,7 @@ variable "cluster_enabled_log_types" {
 variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
-  default     = ["t3.small", "t3.medium", "t3a.small", "t3a.medium"]
+  default     = ["t3.medium","t3a.medium"]
 }
 
 variable "instance_types_default" {
@@ -86,4 +86,3 @@ variable "desired_size" {
   type        = number
   default     = 2
 }
-

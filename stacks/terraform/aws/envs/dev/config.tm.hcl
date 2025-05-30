@@ -38,4 +38,3 @@ generate_hcl "backend.tf" {
     }
   }
 }
-
