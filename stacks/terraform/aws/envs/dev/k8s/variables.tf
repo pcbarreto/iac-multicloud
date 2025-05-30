@@ -4,6 +4,12 @@ variable "cluster_name" {
   default     = "cluster-dev"
 }
 
+variable "region" {
+    description = "AWS region where the cluster will be created"
+    type        = string
+    default     = "us-east-1"
+}
+
 variable "cluster_version" {
   description = "Version of Kubernetes to install the cluster"
   type        = string
