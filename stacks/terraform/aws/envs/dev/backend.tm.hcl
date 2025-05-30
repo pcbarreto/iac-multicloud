@@ -1,5 +1,5 @@
 globals "terraform" "backend" {
-  bucket = "poc-multi-cloud-tfstate"
+  bucket = "poc-multicloud-tfstate"
   region = "us-east-1"
 }
 
@@ -11,8 +11,8 @@ generate_hcl "backend.tf" {
       backend "s3" {
         region       = global.terraform.backend.region
         bucket       = global.terraform.backend.bucket
-        key          =  "${terramate.stack.path.basename}/terraform.tfstate"
-        use_lockfile   = true
+        key          = "${terramate.stack.path.basename}/terraform.tfstate"
+        use_lockfile = true
       }
     }
   }
