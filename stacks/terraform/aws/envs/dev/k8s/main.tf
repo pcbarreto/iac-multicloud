@@ -134,9 +134,9 @@ resource "helm_release" "karpenter" {
   ]
 
   depends_on = [
-    module.karpenter,
     helm_release.karpenter_crds
   ]
+
   lifecycle {
     ignore_changes = [
       repository_password
@@ -218,7 +218,6 @@ disruption:
 YAML
 
   depends_on = [
-    helm_release.karpenter,
     kubectl_manifest.karpenter_node_class
   ]
 }
