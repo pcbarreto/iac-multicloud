@@ -1,10 +1,8 @@
 data "aws_partition" "current" {}
+data "aws_ecrpublic_authorization_token" "token" {}
 
 data "aws_eks_cluster_auth" "auth" {
   name = var.cluster_name
-}
-data "aws_ecrpublic_authorization_token" "token" {
-  provider = aws.us_east_1
 }
 
 data "aws_eks_cluster" "cluster" {

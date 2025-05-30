@@ -137,6 +137,11 @@ resource "helm_release" "karpenter" {
     module.eks,
     helm_release.karpenter_crds
   ]
+  lifecycle {
+    ignore_changes = [
+      repository_password
+    ]
+  }
 }
 
 resource "kubectl_manifest" "karpenter_node_class" {
