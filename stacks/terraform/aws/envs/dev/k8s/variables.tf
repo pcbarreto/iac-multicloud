@@ -45,6 +45,12 @@ variable "capacity_type" {
   default     = "ON_DEMAND" # "SPOT" "ON_DEMAND"
 }
 
+variable "cluster_enabled_log_types" {
+  description = "List of enabled log types for the cluster"
+  type        = list(string)
+  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+}
+
 variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)

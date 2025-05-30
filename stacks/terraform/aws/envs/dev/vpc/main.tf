@@ -23,9 +23,5 @@ module "vpc" {
     "karpenter.sh/discovery"          = var.cluster_name
   }
 
-  tags = {
-    Owner       = "Platform Engeneering"
-    Environment = "dev"
-    ManagedBy   = "Terraform"
-  }
+  tags = local.tags
 }

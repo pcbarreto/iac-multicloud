@@ -3,7 +3,6 @@ stack {
   description = "Stack to manage the main EKS"
   id          = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
   tags = [
-    "core",
     "eks",
     "dev"
   ]
