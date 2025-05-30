@@ -6,20 +6,17 @@ data "aws_eks_cluster_auth" "auth" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_name
+  name = var.cluster_name
   depends_on = [
     module.eks.cluster_name
   ]
 }
 
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-  config = {
-    bucket = "poc-multi-cloud-tfstate"
-    key    = "env:/dev/vpc/stacks-terraform.tfstate"
-    region = "us-east-1"
-  }
-  depends_on = [
-    module.vpc
-  ]
-}
+# data "terraform_remote_state" "vpc" {
+#   backend = "s3"
+#   config = {
+#     bucket = "poc-multi-cloud-tfstate"
+#     key    = "env:/dev/vpc/stacks-terraform.tfstate"
+#     region = "us-east-1"
+#   }
+# }

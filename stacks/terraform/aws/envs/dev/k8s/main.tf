@@ -7,8 +7,8 @@ module "eks" {
 
   enable_cluster_creator_admin_permissions = var.creator_admin_permissions
   cluster_endpoint_public_access           = var.cluster_endpoint_public_access
-  authentication_mode                      = "API_AND_CONFIG_MAP"
   enable_irsa                              = true
+  authentication_mode                      = "API_AND_CONFIG_MAP"
   cluster_enabled_log_types                = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   vpc_id                   = var.vpc_id
@@ -17,7 +17,7 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type       = var.ami_type_default
-    instance_types = var.instance_types
+    instance_types = var.instance_types_default
     disk_size      = var.disk_size_default
 
   }

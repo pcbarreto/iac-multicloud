@@ -33,6 +33,12 @@ variable "ami_type" {
   default     = "AL2023_x86_64_STANDARD" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
 }
 
+variable "ami_type_default" {
+  description = "The type of the AMI to use for the instances."
+  type        = string
+  default     = "AL2023_x86_64_STANDARD" #"BOTTLEROCKET_x86_64" "AL2023_x86_64_STANDARD"
+}
+
 variable "capacity_type" {
   description = "The capacity type for the node group."
   type        = string
