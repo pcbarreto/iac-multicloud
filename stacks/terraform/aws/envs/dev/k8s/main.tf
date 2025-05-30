@@ -38,13 +38,6 @@ module "eks" {
       desired_size   = var.desired_size
     }
   }
-  service_accounts = {
-    cluster_autoscaler = {
-      namespace      = "kube-system"
-      name           = "cluster-autoscaler"
-      attach_policy_arns = [aws_iam_policy.cluster_autoscaler.arn]
-    }
-  }
 
   tags = local.tags
 }
@@ -73,12 +66,40 @@ resource "aws_iam_policy" "cluster_autoscaler" {
   })
 }
 
+module "cluster_autoscaler_sa" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version = "5.55.0"
+
+  create_role                   = true
+  role_name                     = "${module.eks.cluster_name}-cluster-autoscaler"
+  provider_url                  = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns              = [aws_iam_policy.cluster_autoscaler.arn]
+  oidc_fully_qualified_subjects = [
+    "system:serviceaccount:kube-system:cluster-autoscaler"
+  ]
+
+  depends_on = [
+    module.eks
+  ]
+}
+
+resource "kubernetes_service_account" "cluster_autoscaler" {
+  metadata {
+    name      = "cluster-autoscaler"
+    namespace = "kube-system"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.cluster_autoscaler_sa.iam_role_arn
+    }
+  }
+}
+
+
 resource "helm_release" "cluster_autoscaler" {
   name             = "cluster-autoscaler"
   repository       = "https://kubernetes.github.io/autoscaler"
   chart            = "cluster-autoscaler"
   namespace        = "kube-system"
-  version          = "9.37.0"
+  version          = "9.46.6"
 
   values = [
     <<-EOT
@@ -88,7 +109,7 @@ resource "helm_release" "cluster_autoscaler" {
     rbac:
       serviceAccount:
         create: false
-        name: ${module.eks.service_accounts["cluster_autoscaler"].name}
+        name: ${kubernetes_service_account.cluster_autoscaler.metadata[0].name}
     extraArgs:
       balance-similar-node-groups: "true"
       skip-nodes-with-system-pods: "false"
@@ -97,6 +118,6 @@ resource "helm_release" "cluster_autoscaler" {
   ]
 
   depends_on = [
-    module.eks
+    kubernetes_service_account.cluster_autoscaler
   ]
 }
