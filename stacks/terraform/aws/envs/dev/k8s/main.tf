@@ -104,7 +104,7 @@ resource "helm_release" "cluster_autoscaler" {
   values = [
     <<-EOT
     autoDiscovery:
-    clusterName: ${var.cluster_name}
+      clusterName: ${var.cluster_name}
     awsRegion: ${var.region}
     rbac:
       serviceAccount:
