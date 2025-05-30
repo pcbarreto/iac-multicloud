@@ -15,16 +15,11 @@ module "eks" {
   subnet_ids               = var.private_subnets
   control_plane_subnet_ids = var.intra_subnets
 
-  managed_node_group_defaults = {
+  eks_managed_node_group_defaults = {
     ami_type       = var.ami_type_default
     instance_types = var.instance_types
     disk_size      = var.disk_size_default
 
-    tags = {
-      ManagedBy   = "Terraform"
-      Owner       = "Platform Engeneering"
-      Environment = "dev"
-    }
   }
 
   eks_managed_node_groups = {
