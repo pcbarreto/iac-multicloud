@@ -54,7 +54,7 @@ variable "instance_types" {
 variable "instance_types_default" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
-  default     = ["t4g.small"]
+  default     = ["t3.small"]
 }
 
 variable "disk_size_default" {
