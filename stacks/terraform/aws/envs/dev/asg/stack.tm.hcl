@@ -26,13 +26,6 @@ input "cluster_endpoint" {
   mock          = "https://cluster_endpoint:8080"
 }
 
-# input "cluster_certificate_authority_data" {
-#   backend       = "default"
-#   from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
-#   value         = outputs.cluster_certificate_authority_data.value
-#   mock          = "ZXhhbXBsZS1jZXJ0aWZpY2F0ZS1hdXRob3JpdHktZGF0YQo="
-# }
-
 input "cluster_oidc_issuer_url" {
   backend       = "default"
   from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
