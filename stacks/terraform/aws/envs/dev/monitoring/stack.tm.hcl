@@ -22,3 +22,11 @@ input "cluster_endpoint" {
   value         = outputs.cluster_endpoint.value
   mock          = "https://5256B2BBFA0827119.gr7.us-east-1.eks.amazonaws.com"
 }
+
+input "cluster_certificate_authority_data" {
+  backend       = "default"
+  from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
+  value         = outputs.cluster_certificate_authority_data.value
+  mock          = "https://5256B2BBFA0827119.gr7.us-east-1.eks.amazonaws.com"
+}
+
