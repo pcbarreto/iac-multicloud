@@ -43,8 +43,8 @@ jobs:
         restore-keys: |
           terraform-plugin-cache-${{ runner.os }}-
 
+    - uses: asdf-vm/actions/setup@v4
     - name: Setup Tools
-      uses: asdf-vm/actions/setup@v4
       run: |
         asdf install
 
