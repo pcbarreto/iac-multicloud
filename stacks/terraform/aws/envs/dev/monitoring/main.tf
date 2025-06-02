@@ -55,19 +55,19 @@ resource "helm_release" "grafana" {
 }
 
 resource "kubernetes_ingress_v1" "grafana" {
+  wait_for_load_balancer = true
   metadata {
     name      = "grafana"
     namespace = "grafana"
-    annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
-    }
+    # Não precisa mais da annotation para ingress.class, se usar ingress_class_name
   }
 
   spec {
+    ingress_class_name = "nginx"
     rule {
       http {
         path {
-          path     = "/"
+          path      = "/"
           path_type = "Prefix"
           backend {
             service {
@@ -82,6 +82,8 @@ resource "kubernetes_ingress_v1" "grafana" {
     }
   }
 
-  depends_on = [helm_release.grafana]
+  depends_on = [
+    helm_release.grafana
+  ]
 }
 
