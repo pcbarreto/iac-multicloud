@@ -45,6 +45,8 @@ jobs:
 
     - name: Setup Tools
       uses: asdf-vm/actions/setup@v4
+      run: |
+        asdf install
 
     - name: Check Terraform formatting
       run: terraform fmt -recursive -check -diff
