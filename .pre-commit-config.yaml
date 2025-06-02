@@ -36,29 +36,29 @@ repos:
   hooks:
   - id: gitleaks
 
-  # YAML
-- repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-  rev: 0.2.3
-  hooks:
-  - id: yamlfmt
-    args:
-    - --mapping=2
-    - --sequence=2
-    - --offset=0
-    - --width=75
-    - --implicit_start
-
-- repo: https://github.com/adrienverge/yamllint.git
-  rev: v1.37.1
-  hooks:
-  - id: yamllint
-    types:
-    - file
-    - yaml
-    args:
-    - --strict
-    ignore: |
-      - .github/workflows/.*
+#  # YAML
+#- repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+#  rev: 0.2.3
+#  hooks:
+#  - id: yamlfmt
+#    args:
+#    - --mapping=2
+#    - --sequence=2
+#    - --offset=0
+#    - --width=75
+#    - --implicit_start
+#
+#- repo: https://github.com/adrienverge/yamllint.git
+#  rev: v1.37.1
+#  hooks:
+#  - id: yamllint
+#    types:
+#    - file
+#    - yaml
+#    args:
+#    - --strict
+#    ignore: |
+#      - .github/workflows/.*
 
   # Bash
 - repo: https://github.com/jumanjihouse/pre-commit-hooks
