@@ -2,7 +2,7 @@ stack {
   name        = "AWS Karpenter Dev"
   description = "Stack to manage the main Karpenter"
   id          = "eaaf0b87-f975-4a99-a370-e3131bbcc33a"
-  tags        = [
+  tags = [
     "asg",
     "dev"
   ]

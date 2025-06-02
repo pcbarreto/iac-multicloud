@@ -3,7 +3,7 @@ stack {
   description = "Stack to manage the main Resources"
   id          = "b6a03fda-6f82-4726-8ad8-b5956f5a511f"
 
-  tags        = ["resources", "dev"]
+  tags = ["resources", "dev"]
 
   after = [
     "tag:asg"

@@ -6,20 +6,20 @@ globals "terraform" "backend" {
 globals "terraform" "tags" {
   Environment = "dev"
   Owner       = "Platform Engineering"
-  ManagedBy  = "Terraform"
-  GithubRepo = "iac-multicloud"
-  GithubOrg  = "PcBarreto"
+  ManagedBy   = "Terraform"
+  GithubRepo  = "iac-multicloud"
+  GithubOrg   = "PcBarreto"
 }
 
 generate_hcl "locals.tf" {
   content {
     locals {
       tags = {
-          Environment = "dev"
-          Owner       = "Platform Engineering"
-          ManagedBy   = "Terraform"
-          GithubRepo  = "iac-multicloud"
-          GithubOrg   = "PcBarreto"
+        Environment = "dev"
+        Owner       = "Platform Engineering"
+        ManagedBy   = "Terraform"
+        GithubRepo  = "iac-multicloud"
+        GithubOrg   = "PcBarreto"
       }
     }
   }
