@@ -27,6 +27,6 @@ input "cluster_certificate_authority_data" {
   backend       = "default"
   from_stack_id = "fb96b268-d6d7-4e4a-953c-9dc711342beb"
   value         = outputs.cluster_certificate_authority_data.value
-  mock          = "https://5256B2BBFA0827119.gr7.us-east-1.eks.amazonaws.com"
+  mock          = "2048c7ae88996e57d4993bb44571a77e5c15bde632f08b53302c114c7341fa88"
 }
 
