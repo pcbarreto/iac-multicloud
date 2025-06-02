@@ -15,3 +15,22 @@ resource "helm_release" "kube_state_metrics" {
   create_namespace = false
   version          = var.kube_state_metrics_version
 }
+
+resource "helm_release" "nginx_ingress" {
+  name             = "nginx-ingress"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  namespace        = "ingress-nginx"
+  create_namespace = true
+  version          = "4.12.2"
+
+  values = [
+    yamlencode({
+      controller = {
+        service = {
+          type = "LoadBalancer"
+        }
+      }
+    })
+  ]
+}

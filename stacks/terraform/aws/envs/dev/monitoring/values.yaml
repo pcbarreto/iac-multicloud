@@ -1,0 +1,45 @@
+adminUser: ${admin_user}
+adminPassword: ${admin_pass}
+
+service:
+  type: LoadBalancer
+  port: 80
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Loki
+        type: loki
+        access: proxy
+        url: ${loki_url}
+        isDefault: true
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: ${tempo_url}
+        jsonData:
+          httpMethod: GET
+      - name: Mimir
+        type: prometheus
+        access: proxy
+        url: ${mimir_url}
+dashboards:
+  default:
+    kubernetes-cluster-monitoring:
+      gnetId: 315
+      revision: 4
+      datasource: Mimir
+    kubernetes-namespace-by-pod:
+      gnetId: 15761
+      revision: 2
+      datasource: Mimir
+    kubernetes-pods:
+      gnetId: 8568
+      revision: 4
+      datasource: Mimir
+    node-exporter-full:
+      gnetId: 1860
+      revision: 29
+      datasource: Mimir
+
