@@ -1,4 +1,4 @@
-name: Validate and Generate Terraform Docs
+name: Generate Terraform Docs
 on:
 - pull_request
 
@@ -14,11 +14,13 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Render terraform docs and push changes back to PR
-      uses: terraform-docs/gh-actions@main
-      with:
-        working-dir: ./stacks/terraform
-        output-file: README.md
-        output-method: inject
-        git-push: 'true'
-        recursive: 'true'
+    - name: Setup Tools
+    - uses: asdf-vm/actions/setup@v4
+
+    - name: Terraform Docs
+      id: tfdocs
+      run: |
+        terramate list -c | while read -r d; do
+        echo "Gerando docs em $d"
+        terraform-docs markdown table -c .terraform-doc.yml "$d" > "$d/README.md"
+        done
