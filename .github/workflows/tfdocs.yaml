@@ -19,11 +19,16 @@ jobs:
 
     - name: Setup Tools
       uses: asdf-vm/actions/setup@v4
+      commands: |
+        terraform-docs --version
+        terramate --version
+        terraform --version
+      
+
 
     - name: Terraform Docs
       id: tfdocs
       run: |
-        terramate list -c
         terramate list -c | while read -r d; do
             if ls "$d"/*.tf >/dev/null 2>&1; then
               echo "Gerando docs em $d"
