@@ -19,10 +19,11 @@ jobs:
 
     - name: Setup Tools
       uses: asdf-vm/actions/setup@v4
-      commands: |
-        terraform-docs --version
-        terramate --version
-        terraform --version
+      with:
+        command: |
+          terraform-docs --version
+          terramate --version
+          terraform --version
       
 
 
