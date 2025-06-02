@@ -1,0 +1,76 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+  TF_WORKSPACE: dev
+  TF_IN_AUTOMATION: true
+  TF_INPUT: false
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  Deploy:
+    name: Deploy Terraform changes in changed Terramate stacks
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Install Terramate
+        uses: terramate-io/terramate-action@v2
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.1
+          terraform_wrapper: false
+
+      - name: List changed stacks
+        id: list
+        run: terramate list --changed --run-order
+
+      ## Comment this step out if not using AWS
+      - name: Configure AWS credentials via OIDC
+        if: steps.list.outputs.stdout
+        id: auth
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::975050361443:role/github
+
+      - name: Run Terraform init in each changed stacks
+        if: steps.list.outputs.stdout
+        id: init
+        run: |
+          terramate run \
+            --parallel 1 \
+            --changed \
+            -- \
+            terraform init
+
+      - name: Apply planned changes on changed stacks
+        if: steps.list.outputs.stdout
+        id: apply
+        run: |
+          terramate run \
+            --parallel 5 \
+            --changed \
+            --enable-sharing \
+            -- \
+            terraform apply -input=false -auto-approve -lock-timeout=5m
