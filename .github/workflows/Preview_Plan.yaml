@@ -44,7 +44,7 @@ jobs:
           terraform-plugin-cache-${{ runner.os }}-
 
     - name: Setup Tools
-    - uses: asdf-vm/actions/setup@v4
+      uses: asdf-vm/actions/setup@v4
       with:
         tool-versions-file: .tool-versions
 #        add-latest: true
