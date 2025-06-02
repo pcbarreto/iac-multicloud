@@ -19,8 +19,6 @@ jobs:
 
     - name: Setup Tools
       uses: asdf-vm/actions/setup@v4
-      with:
-        command: asdf plugin list all
 
     - name: Terraform Docs
       id: tfdocs
