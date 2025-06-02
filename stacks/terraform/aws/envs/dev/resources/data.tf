@@ -5,6 +5,7 @@ data "aws_eks_cluster_auth" "auth" {
 data "aws_eks_cluster" "cluster" {
   name = var.cluster_name
 }
+
 # data "terraform_remote_state" "eks" {
 #   backend = "s3"
 #   config = {
