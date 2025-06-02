@@ -6,8 +6,8 @@ resource "aws_iam_policy" "cluster_autoscaler" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "autoscaling:DescribeAutoScalingGroups",
           "autoscaling:DescribeAutoScalingInstances",
           "autoscaling:SetDesiredCapacity",
@@ -27,10 +27,10 @@ module "cluster_autoscaler_sa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.55.0"
 
-  create_role                   = true
-  role_name                     = "${var.cluster_name}-cluster-autoscaler"
-  provider_url                  = replace(var.cluster_oidc_issuer_url, "https://", "")
-  role_policy_arns              = [aws_iam_policy.cluster_autoscaler.arn]
+  create_role      = true
+  role_name        = "${var.cluster_name}-cluster-autoscaler"
+  provider_url     = replace(var.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns = [aws_iam_policy.cluster_autoscaler.arn]
   oidc_fully_qualified_subjects = [
     "system:serviceaccount:kube-system:cluster-autoscaler"
   ]
@@ -52,11 +52,11 @@ resource "kubernetes_service_account" "cluster_autoscaler" {
 
 
 resource "helm_release" "cluster_autoscaler" {
-  name             = "cluster-autoscaler"
-  repository       = "https://kubernetes.github.io/autoscaler"
-  chart            = "cluster-autoscaler"
-  namespace        = "kube-system"
-  version          = "9.46.6"
+  name       = "cluster-autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart      = "cluster-autoscaler"
+  namespace  = "kube-system"
+  version    = "9.46.6"
 
   values = [
     <<-EOT

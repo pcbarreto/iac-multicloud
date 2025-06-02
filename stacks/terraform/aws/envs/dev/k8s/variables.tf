@@ -5,9 +5,9 @@ variable "cluster_name" {
 }
 
 variable "region" {
-    description = "AWS region where the cluster will be created"
-    type        = string
-    default     = "us-east-1"
+  description = "AWS region where the cluster will be created"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "cluster_version" {
@@ -44,7 +44,7 @@ variable "cluster_enabled_log_types" {
 variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
-  default     = ["t3.medium","t3a.medium"]
+  default     = ["t3.medium", "t3a.medium"]
 }
 
 variable "min_size" {

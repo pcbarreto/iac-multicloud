@@ -23,4 +23,3 @@ input "cluster_endpoint" {
   value         = outputs.cluster_endpoint.value
   mock          = "https://5256B2BBFA0827119.gr7.us-east-1.eks.amazonaws.com"
 }
-

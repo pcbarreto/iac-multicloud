@@ -16,16 +16,16 @@ module "eks" {
   control_plane_subnet_ids = var.intra_subnets
 
   cluster_addons = {
-    coredns                = {
+    coredns = {
       most_recent_version = true
     }
     eks-pod-identity-agent = {
       most_recent_version = true
     }
-    kube-proxy             = {
+    kube-proxy = {
       most_recent_version = true
     }
-    vpc-cni                = {
+    vpc-cni = {
       most_recent_version = true
     }
   }
@@ -41,5 +41,3 @@ module "eks" {
 
   tags = local.tags
 }
-
-

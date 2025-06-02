@@ -18,7 +18,7 @@
 |------|-------------|
 | <a name="output_intra_subnets"></a> [intra\_subnets](#output\_intra\_subnets) | n/a |
 | <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | n/a |
-| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | n/a |
+| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | List of public subnets in the VPC |
 | <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The ARN of the VPC |
-| <a name="output_vpc_cidr_block"></a> [vpc\_cidr\_block](#output\_vpc\_cidr\_block) | n/a |
+| <a name="output_vpc_cidr_block"></a> [vpc\_cidr\_block](#output\_vpc\_cidr\_block) | The CIDR block of the VPC |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | n/a |
