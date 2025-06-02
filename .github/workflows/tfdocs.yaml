@@ -1,6 +1,6 @@
 name: Generate Terraform Docs
 on:
- pull_request:
+ push:
    paths:
      - 'stacks/terraform/**/*.tf'
      - '.github/workflows/tfdocs.yml'
