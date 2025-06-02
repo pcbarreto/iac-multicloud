@@ -5,6 +5,23 @@ settings:
   color: true
   hide-empty: true
 
+#path:
+#  -
+#    directory: ./satcks/terraform/
+#    header-from: "README.md"
+#    footer-from: "docs/footer.md"
+#    formatter: markdown
+#    recursive: true
+#  -
+#    directory: ./modulo2
+#    header-from: "doc/README.md"
+#    formatter: markdown
+#    recursive: true
+#  -
+#    directory: ./modulo3
+#    formatter: markdown
+#    recursive: true
+
 content: |-
   {{ .Header }}
 
