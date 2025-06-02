@@ -3,6 +3,17 @@ name: Terraform Preview
 on:
   pull_request:
 
+env:
+  AWS_REGION: us-east-1
+  TF_WORKSPACE: dev
+  TF_IN_AUTOMATION: true
+  TF_INPUT: false
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   preview:
     name: Plan Terraform changes in changed Terramate stacks
