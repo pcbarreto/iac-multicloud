@@ -2,9 +2,9 @@ data "aws_eks_cluster_auth" "auth" {
   name = var.cluster_name
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = var.cluster_name
-}
+# data "aws_eks_cluster" "cluster" {
+#   name = var.cluster_name
+# }
 
 # Opcional: pegar o endpoint externo (LoadBalancer) do Grafana
 data "kubernetes_service" "grafana" {
