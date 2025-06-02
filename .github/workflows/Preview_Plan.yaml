@@ -1,7 +1,9 @@
 name: Terraform Preview
 
 on:
-  pull_request:
+  push:
+    branches:
+      - feature/*
 
 env:
   AWS_REGION: us-east-1
