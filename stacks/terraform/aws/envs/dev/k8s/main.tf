@@ -28,6 +28,12 @@ module "eks" {
     vpc-cni = {
       most_recent_version = true
     }
+    aws-ebs-csi-driver = {
+      most_recent_version = true
+    }
+    aws-efs-csi-driver = {
+      most_recent_version = true
+    }
   }
   eks_managed_node_groups = {
     default = {
