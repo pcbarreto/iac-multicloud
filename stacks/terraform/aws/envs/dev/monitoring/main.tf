@@ -26,6 +26,14 @@ resource "helm_release" "mimir" {
   namespace        = "mimir"
   create_namespace = true
   version          = "5.6.0"
+
+  values = [
+  yamlencode({
+    storage = {
+      storageClass = "ebs-sc"
+    }
+  })
+]
 }
 
 # Grafana com datasources automáticos
