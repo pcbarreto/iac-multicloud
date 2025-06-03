@@ -45,9 +45,9 @@ module "eks" {
 
     }
 
-    iam_role_additional_policies = {
-      AmazonEBSCSIDriverPolicy  = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-    }
+  }
+  iam_role_additional_policies = {
+    AmazonEBSCSIDriverPolicy  = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
   }
 
   tags = local.tags
