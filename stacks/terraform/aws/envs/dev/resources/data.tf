@@ -10,7 +10,7 @@ data "aws_eks_cluster" "cluster" {
 #   backend = "s3"
 #   config = {
 #     bucket = "poc-multicloud-tfstate"
-#     key    = "env:/dev/k8s/stacks-terraform.tfstate"
+#     key    = "env:/dev/k8s/terraform.tfstate"
 #     region = "us-east-1"
 #   }
 # }
