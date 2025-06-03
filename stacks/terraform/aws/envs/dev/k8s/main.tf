@@ -43,9 +43,27 @@ module "eks" {
       max_size       = var.max_size
       desired_size   = var.desired_size
     }
+    iam_role_additional_policies = [
+        "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+      ]
   }
 
   tags = local.tags
+}
+
+resource "kubectl_manifest" "ebs-sc" {
+  yaml_body = <<-YAML
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    metadata:
+      name: ebs-sc
+      annotations:
+        storageclass.kubernetes.io/is-default-class: "true"
+    provisioner: ebs.csi.aws.com
+    reclaimPolicy: Delete
+    volumeBindingMode: WaitForFirstConsumer
+  YAML
+
 }
 
 resource "aws_iam_policy" "cluster_autoscaler" {
