@@ -44,7 +44,7 @@ variable "cluster_enabled_log_types" {
 variable "instance_types" {
   description = "Worker instance types for worker nodes"
   type        = list(string)
-  default     = "[m5.large"]
+  default     = ["m5.large"]
 }
 
 variable "min_size" {
