@@ -85,15 +85,7 @@ resource "aws_iam_policy" "cluster_autoscaler" {
           "ec2:DescribeLaunchTemplateVersions",
           "ec2:DescribeInstanceTypes",
           "ec2:DescribeInstances",
-          "ec2:DescribeTags"
-        ],
-        Resource = "*"
-      }
-    ],
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
+          "ec2:DescribeTags",
           "ec2:CreateVolume",
           "ec2:AttachVolume",
           "ec2:DeleteVolume",
