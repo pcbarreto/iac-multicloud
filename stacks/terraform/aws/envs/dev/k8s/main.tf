@@ -72,8 +72,8 @@ module "cluster_autoscaler_sa" {
   version = "5.55.0"
 
   create_role      = true
-  role_name        = "${var.cluster_name}-cluster-autoscaler"
-  provider_url     = replace(var.cluster_oidc_issuer_url, "https://", "")
+  role_name        = "${module.eks.cluster_name}-cluster-autoscaler"
+  provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns = [aws_iam_policy.cluster_autoscaler.arn]
   oidc_fully_qualified_subjects = [
     "system:serviceaccount:kube-system:cluster-autoscaler"
