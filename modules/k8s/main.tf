@@ -11,9 +11,9 @@ module "eks" {
   authentication_mode                      = "API_AND_CONFIG_MAP"
   cluster_enabled_log_types                = var.cluster_enabled_log_types
 
-  vpc_id                   = data.terraform_remote_state.network.vpc_id
-  subnet_ids               = [data.terraform_remote_state.network.private_subnets]
-  control_plane_subnet_ids = data.terraform_remote_state.network.intra_subnets
+  vpc_id                   = data.terraform_remote_state.network.outputs.vpc_id
+  subnet_ids               = data.terraform_remote_state.network.outputs.private_subnets
+  control_plane_subnet_ids = data.terraform_remote_state.network.outputs.intra_subnets
 
   cluster_addons = {
     coredns = {

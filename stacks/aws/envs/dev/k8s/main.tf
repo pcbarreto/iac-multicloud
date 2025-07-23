@@ -12,4 +12,5 @@ module "eks" {
   max_size                       = var.max_size
   desired_size                   = var.desired_size
 
+
 }
