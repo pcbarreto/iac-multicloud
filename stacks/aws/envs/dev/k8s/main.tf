@@ -1,5 +1,5 @@
 module "eks" {
-  source = "../../../../../modules/k8s"
+  source = "../../../../../modules/aws/k8s"
 
   cluster_name                   = var.cluster_name
   cluster_version                = var.cluster_version
