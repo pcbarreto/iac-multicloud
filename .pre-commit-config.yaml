@@ -1,9 +1,8 @@
 repos:
-  - repo: https://github.com/terraform-docs/terraform-docs
-    rev: "v0.20.0"
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.99.5
     hooks:
-      - id: terraform-docs-go
-        args: ["markdown", "table", "--output-file", "README.md", "modules", "-recursive"]
+      - id: terraform_docs
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -17,7 +16,7 @@ repos:
 
     # Detect hardcoded secrets
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.26.0
+    rev: v8.28.0
     hooks:
     - id: gitleaks
 

@@ -3,15 +3,15 @@ formatter: markdown table
 recursive:
   enabled: true
   path: modules
-  include-main: true
+  include-main: false
 
-#output:
-#  file: "README.md"
-#  mode: inject
-#  template: |-
-#    <!-- BEGIN_TF_DOCS -->
-#    {{ .Content }}
-#    <!-- END_TF_DOCS -->
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
 
 sort:
   enabled: true
@@ -27,32 +27,6 @@ sections:
     - header
     - inputs
     - outputs
-
-content: |-
-  {{ .Header }}
-
-  {{ .Inputs }}
-  
-  {{ .Providers }}
-
-  {{ .Resources }}
-
-  {{ .Modules }}
-
-  {{ .DataSources }}
-
-  {{ .Functions }}
-
-  {{ .Variables }}
-
-  {{ .Locals }}
-
-  {{ .TerraformVersion }}
-
-  {{ .Backend }}
-
-  {{ .RequiredProviders }}
-
-  {{ .RequiredVersion }}
-
-  {{ .Outputs }}
+    - providers
+    - resources
+    - modules
