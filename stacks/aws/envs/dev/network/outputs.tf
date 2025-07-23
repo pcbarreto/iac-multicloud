@@ -12,6 +12,7 @@ output "public_subnets" {
   description = "List of public subnets in the VPC"
   value       = module.network.public_subnets
 }
+
 output "vpc_id" {
   description = "The ID of the VPC"
   value = module.network.vpc_id
