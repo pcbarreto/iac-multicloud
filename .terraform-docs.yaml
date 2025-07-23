@@ -6,8 +6,8 @@ header-from: main.tf
 footer-from: ""
 
 recursive:
-  enabled: false
-  path: modules
+  enabled: true
+  path: modules/
   include-main: true
 
 sections:
