@@ -3,29 +3,6 @@ globals "terraform" "backend" {
   region = "us-east-1"
 }
 
-# globals "terraform" "tags" {
-#   Environment = "dev"
-#   Owner       = "Platform Engineering"
-#   ManagedBy   = "Terraform"
-#   GithubRepo  = "iac-multicloud"
-#   GithubOrg   = "PcBarreto"
-# }
-
-# generate_hcl "locals.tf" {
-#   content {
-#     locals {
-#       tags = {
-#         Environment = "dev"
-#         Owner       = "Platform Engineering"
-#         ManagedBy   = "Terraform"
-#         GithubRepo  = "iac-multicloud"
-#         GithubOrg   = "PcBarreto"
-#       }
-#     }
-#   }
-# }
-
-
 generate_hcl "backend.tf" {
   content {
     terraform {
