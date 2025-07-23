@@ -3,7 +3,7 @@ repos:
     rev: "v0.20.0"
     hooks:
       - id: terraform-docs-go
-        args: ["markdown", "table", "--output-file", "./modules/README.md", "./modules", "--recursive"]
+        args: ["markdown", "table", "--output-file", "README.md", "modules", "--recursive"]
 
 
 #  - repo: https://github.com/mineiros-io/pre-commit-hooks
