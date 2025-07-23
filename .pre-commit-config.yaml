@@ -5,6 +5,12 @@ repos:
       - id: terraform_fmt
       - id: terraform_docs
 
+  - repo: https://github.com/mineiros-io/pre-commit-hooks
+    rev: v0.5.0
+    hooks:
+      - id: terramate-generate
+      - id: terramate-fmt
+      - id: terraform-fmt
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
