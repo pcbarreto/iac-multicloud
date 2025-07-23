@@ -1,6 +1,6 @@
-formatter: "" # this is required
+formatter: "markdown table" # this is required
 
-version: ""
+version: "v1.0.0"
 
 header-from: main.tf
 footer-from: ""
@@ -17,7 +17,7 @@ sections:
 content: ""
 
 output:
-  file: ""
+  file: "README.md"
   mode: inject
   template: |-
     <!-- BEGIN_TF_DOCS -->
