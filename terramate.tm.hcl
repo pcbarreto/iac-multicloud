@@ -4,7 +4,7 @@ terramate {
     git {
       default_branch = "main"
     }
-    disable_safeguards = ["git-untracked", "git-uncommitted"]
+    # disable_safeguards = ["git-untracked", "git-uncommitted"]
     experiments = [
       "scripts",
       "outputs-sharing",

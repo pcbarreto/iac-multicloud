@@ -18,81 +18,26 @@
 
 ## Estrutura de Diretórios do Projeto
 
-```text.
-├── imports
-│ └── templates
-└── stacks
-    └── terraform
-        ├── aws
-        │ └── envs
-        │     ├── dev
-        │     │ ├── k8s
-        │     │ ├── karpenter
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     ├── prod
-        │     │ ├── k8s
-        │     │ ├── karpenter
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     └── stg
-        │         ├── k8s
-        │         ├── karpenter
-        │         ├── monitoring
-        │         ├── resources
-        │         └── vpc
-        ├── azure
-        │ └── envs
-        │     ├── dev
-        │     │ ├── k8s
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     ├── prod
-        │     │ ├── k8s
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     └── stg
-        │         ├── k8s
-        │         ├── monitoring
-        │         ├── resources
-        │         └── vpc
-        ├── google
-        │ └── envs
-        │     ├── dev
-        │     │ ├── k8s
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     ├── prod
-        │     │ ├── k8s
-        │     │ ├── monitoring
-        │     │ ├── resources
-        │     │ └── vpc
-        │     └── stg
-        │         ├── k8s
-        │         ├── monitoring
-        │         ├── resources
-        │         └── vpc
-        └── oracle
-            └── envs
-                ├── dev
-                │ ├── k8s
-                │ ├── monitoring
-                │ ├── resources
-                │ └── vpc
-                ├── prod
-                │ ├── k8s
-                │ ├── monitoring
-                │ ├── resources
-                │ └── vpc
-                └── stg
-                    ├── k8s
-                    ├── monitoring
-                    ├── resources
-                    └── vpc
+```dirtree
+.
+├── modules
+│ ├── k8s
+│ └── network
+├── stacks
+│ ├── aws
+│ │ └── envs
+│ │     ├── dev
+│ │     │ ├── k8s
+│ │     │ └── network
+│ │     ├── prod
+│ │     ├── staging
+│ │     └── test
+│ └── google
+│     └── envs
+│         ├── dev
+│         ├── prod
+│         ├── staging
+│         └── test
+└── templates
 ```
 
