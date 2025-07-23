@@ -1,10 +1,16 @@
 repos:
-  - repo: https://github.com/mineiros-io/pre-commit-hooks
-    rev: v0.5.1
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: "v0.20.0"
     hooks:
-      - id: terramate-fmt
-      - id: terramate-generate
-      - id: terraform-fmt
+      - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "./modules/README.md", "./modules"]
+
+#  - repo: https://github.com/mineiros-io/pre-commit-hooks
+#    rev: v0.5.1
+#    hooks:
+#      - id: terramate-fmt
+#      - id: terramate-generate
+#      - id: terraform-fmt
 #
 #- repo: https://github.com/pre-commit/pre-commit-hooks
 #  rev: v5.0.0
