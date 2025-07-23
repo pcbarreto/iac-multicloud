@@ -58,8 +58,3 @@ variable "desired_size" {
   default     = 2
 }
 
-variable "vpc_id" {
-    description = "VPC ID where the cluster will be created"
-    type        = string
-    default     = data.terraform_remote_state.network.vpc_id
-}
