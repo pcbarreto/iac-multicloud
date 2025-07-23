@@ -5,13 +5,13 @@ recursive:
   path: modules
   include-main: true
 
-output:
-  file: "README.md"
-  mode: inject
-  template: |-
-    <!-- BEGIN_TF_DOCS -->
-    {{ .Content }}
-    <!-- END_TF_DOCS -->
+#output:
+#  file: "README.md"
+#  mode: inject
+#  template: |-
+#    <!-- BEGIN_TF_DOCS -->
+#    {{ .Content }}
+#    <!-- END_TF_DOCS -->
 
 sort:
   enabled: true
@@ -22,10 +22,37 @@ settings:
   color: true
   hide-empty: true
 
+sections:
+  show:
+    - header
+    - inputs
+    - outputs
 
 content: |-
   {{ .Header }}
 
   {{ .Inputs }}
+  
+  {{ .Providers }}
+
+  {{ .Resources }}
+
+  {{ .Modules }}
+
+  {{ .DataSources }}
+
+  {{ .Functions }}
+
+  {{ .Variables }}
+
+  {{ .Locals }}
+
+  {{ .TerraformVersion }}
+
+  {{ .Backend }}
+
+  {{ .RequiredProviders }}
+
+  {{ .RequiredVersion }}
 
   {{ .Outputs }}
