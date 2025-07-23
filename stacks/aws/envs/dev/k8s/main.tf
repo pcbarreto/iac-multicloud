@@ -11,8 +11,5 @@ module "eks" {
   min_size                       = var.min_size
   max_size                       = var.max_size
   desired_size                   = var.desired_size
-  # vpc_id                         = data.terraform_remote_state.network.vpc_id
-  # subnet_ids                     = data.terraform_remote_state.network.private_subnets
-  # control_plane_subnet_ids       = data.terraform_remote_state.network.intra_subnets
 
 }
