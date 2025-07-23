@@ -1,5 +1,3 @@
-// TERRAMATE: GENERATED AUTOMATICALLY DO NOT EDIT
-
 locals {
   tags = {
     Environment = "dev"
@@ -8,4 +6,5 @@ locals {
     ManagedBy   = "Terraform"
     Owner       = "Platform Engineering"
   }
+  azs = slice(data.aws_availability_zones.available.names, 0, 3)
 }

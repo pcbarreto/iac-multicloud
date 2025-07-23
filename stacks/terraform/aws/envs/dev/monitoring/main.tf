@@ -28,12 +28,12 @@ resource "helm_release" "mimir" {
   version          = "5.6.0"
 
   values = [
-  yamlencode({
-    storage = {
-      storageClass = "ebs-sc"
-    }
-  })
-]
+    yamlencode({
+      storage = {
+        storageClass = "ebs-sc"
+      }
+    })
+  ]
 }
 
 # Grafana com datasources automáticos

@@ -2,8 +2,8 @@
 
 terraform {
   backend "s3" {
-    bucket       = "poc-multicloud-tfstate"
-    key          = "vpc/terraform.tfstate"
+    bucket       = "pocmulticloud-tfstate"
+    key          = "k8s/terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
   }
