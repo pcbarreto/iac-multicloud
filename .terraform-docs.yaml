@@ -2,7 +2,7 @@ formatter: markdown table
 
 recursive:
   enabled: true
-  path: modules
+  path: ./modules/
   include-main: true
 
 output:
