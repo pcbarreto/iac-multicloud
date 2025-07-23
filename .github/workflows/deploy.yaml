@@ -35,11 +35,13 @@ jobs:
 
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
+        with:
+          version: "0.14.0"
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.12.1
+          terraform_version: 1.12.2
           terraform_wrapper: false
 
       - name: List changed stacks
