@@ -49,7 +49,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.12.1
+          terraform_version: 1.12.2
           terraform_wrapper: false
 
       - name: Check Terramate formatting
@@ -69,7 +69,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::339712865316:role/github
+          role-to-assume: arn:aws:iam::905418047255:role/github
 
       - name: Initialize Terraform in changed stacks
         if: steps.list.outputs.stdout
