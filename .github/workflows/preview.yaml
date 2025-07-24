@@ -45,6 +45,9 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
+      - name: Fetch base branch
+        run: git fetch origin develop
+
       - name: Install Terramate
         uses: terramate-io/terramate-action@v2
 
