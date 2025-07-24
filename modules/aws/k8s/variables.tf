@@ -62,3 +62,4 @@ variable "environment" {
   description = "Ambiente onde os recursos serão provisionados (ex: dev, staging, prod)"
   type        = string
 }
+
