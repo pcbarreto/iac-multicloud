@@ -50,5 +50,5 @@ module "eks" {
     AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
   }
 
-  tags = local.tags
+  tags = merge(local.tags, { Environment = var.environment })
 }

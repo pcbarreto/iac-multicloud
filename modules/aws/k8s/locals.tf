@@ -1,9 +1,10 @@
 locals {
-  tags = {
-    Environment = "dev"
-    GithubOrg   = "PcBarreto"
-    GithubRepo  = "iac-multicloud"
-    ManagedBy   = "Terraform"
-    Owner       = "Platform Engineering"
-  }
+  tags = merge({
+    GithubOrg  = "PcBarreto"
+    GithubRepo = "iac-multicloud"
+    ManagedBy  = "Terraform"
+    Owner      = "Platform Engineering"
+    }, {
+    Environment = var.environment
+  })
 }

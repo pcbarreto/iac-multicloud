@@ -1,7 +1,13 @@
-globals "terraform" "backend" {
-  bucket = "pocmulticloud-tfstate"
-  region = "us-east-1"
+globals "environment" {
+  env = "dev"
 }
+
+globals "terraform" "backend" {
+  bucket      = "pocmulticloud-tfstate"
+  region      = "us-east-1"
+  Environment = global.environment.env
+}
+
 
 generate_hcl "backend.tf" {
   content {
@@ -15,3 +21,5 @@ generate_hcl "backend.tf" {
     }
   }
 }
+
+

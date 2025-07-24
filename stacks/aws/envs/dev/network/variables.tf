@@ -27,3 +27,9 @@ variable "one_nat_gateway_per_az" {
   type        = bool
   default     = false
 }
+
+variable "environment" {
+  type        = string
+  description = "Nome do ambiente (ex: dev, staging, prod)"
+  default     = "dev"
+}

@@ -24,6 +24,11 @@ variable "one_nat_gateway_per_az" {
   type        = bool
 }
 
+variable "environment" {
+  description = "Ambiente onde os recursos serão provisionados (ex: dev, staging, prod)"
+  type        = string
+}
+
 
 # locals {
 #   azs = slice(data.aws_availability_zones.available.names, 0, 3)

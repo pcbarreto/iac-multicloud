@@ -58,3 +58,7 @@ variable "desired_size" {
   default     = 2
 }
 
+variable "environment" {
+  description = "Ambiente onde os recursos serão provisionados (ex: dev, staging, prod)"
+  type        = string
+}

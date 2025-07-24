@@ -64,3 +64,9 @@ variable "desired_size" {
   type        = number
   default     = 2
 }
+
+variable "environment" {
+  type        = string
+  description = "Nome do ambiente (ex: dev, staging, prod)"
+  default     = "dev"
+}
