@@ -62,7 +62,7 @@ jobs:
 
       - name: List changed stacks
         id: list
-        run: terramate list --changed -B ${{ github.event.pull_request.base.ref }} --run-order
+        run: terramate list --changed --run-order
 
       ## Comment this step out if not using AWS
       - name: Configure AWS credentials via OIDC
